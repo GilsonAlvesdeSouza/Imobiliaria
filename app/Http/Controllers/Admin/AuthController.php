@@ -2,16 +2,19 @@
 
 namespace LaraDev\Http\Controllers\Admin;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\User;
 
+
 class AuthController extends Controller
 {
     public function showLoginForm()
     {
+        if(Auth::check() === true){
+            return redirect()->route('admin.home');
+        }
         return view('admin.index');
     }
 
@@ -43,6 +46,7 @@ class AuthController extends Controller
             return response()->json($json);
         }
 
+        $this->authenticated($request->getClientIp());
         $json['redirect'] = route('admin.home');
         return response()->json($json);
     }
@@ -51,5 +55,16 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('admin.login');
+    }
+
+    private function authenticated(string $ip)
+    {
+        $user = User::where('id', Auth::user()->id);
+        $data = [
+            'last_login_at' => date('Y-m-d H:i:s'),
+            'last_login_ip' => $ip,
+        ];
+
+        $user->update($data);
     }
 }
