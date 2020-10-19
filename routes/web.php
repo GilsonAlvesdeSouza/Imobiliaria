@@ -20,6 +20,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::group(['middleware' => ['auth']], function () {
         /** Dashborad Home */
         Route::get('home', 'AuthController@home')->name('home');
+
+        Route::get('users/team', 'UserController@team')->name('users.team');
+        Route::resource('users', 'UserController');
     });
 
     /** logout */

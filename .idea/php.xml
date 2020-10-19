@@ -107,6 +107,18 @@
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+  <component name="PhpStepFilterConfiguration">
+    <skipped_functions>
+      <skipped_function name="tap" />
+      <skipped_function name="Illuminate\Routing\Pipeline-&gt;Illuminate\Pipeline\{closure:C:\xampp\htdocs\imobiliaria\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php:140-169}" />
+      <skipped_function name="Illuminate\Session\Middleware\StartSession-&gt;handle" />
+      <skipped_function name="Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle" />
+      <skipped_function name="LaraDev\Http\Middleware\EncryptCookies-&gt;encrypt" />
+      <skipped_function name="Illuminate\Routing\Router-&gt;prepareResponse" />
+      <skipped_function name="LaraDev\Http\Controllers\Admin\AuthController-&gt;login" />
+      <skipped_function name="isActive" />
+    </skipped_functions>
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" phpunit_phar_path="" use_configuration_file="true" />
