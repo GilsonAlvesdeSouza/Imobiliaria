@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
     /** Formulário de login */
     Route::get('/', 'AuthController@showLoginForm')->name('login');

@@ -17,6 +17,8 @@
 </head>
 <body>
 
+@include('sweetalert::alert')
+
 <div class="ajax_load">
     <div class="ajax_load_box">
         <div class="ajax_load_box_circle"></div>

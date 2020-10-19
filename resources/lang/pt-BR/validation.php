@@ -172,6 +172,7 @@ return [
         'title' => 'título',
         'username' => 'usuário',
         'year' => 'ano',
+        'genre' => 'gênero'
     ],
 
 ];
