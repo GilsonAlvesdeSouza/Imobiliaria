@@ -5,6 +5,7 @@ namespace LaraDev\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\UserRequest;
+use LaraDev\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -37,9 +38,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
-
-        var_dump($request->all());
+        $user = new User();
+        $user->fill($request->all());
+        var_dump($user->getAttributes(),$request->all());
     }
 
     /**
