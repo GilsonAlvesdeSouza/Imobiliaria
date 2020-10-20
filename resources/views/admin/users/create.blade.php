@@ -81,7 +81,7 @@
                                     <label class="label">
                                         <span class="legend">*CPF:</span>
                                         <input type="tel" class="mask-doc" name="document" placeholder="CPF do Cliente"
-                                               value=""/>
+                                               value="{{ old("document") }}"/>
                                     </label>
                                 </div>
 
@@ -89,13 +89,13 @@
                                     <label class="label">
                                         <span class="legend">*RG:</span>
                                         <input type="text" name="document_secondary" placeholder="RG do Cliente"
-                                               value=""/>
+                                               value="{{ old("document_secondary") }}"/>
                                     </label>
 
                                     <label class="label">
                                         <span class="legend">Órgão Expedidor:</span>
                                         <input type="text" name="document_secondary_complement" placeholder="Expedição"
-                                               value=""/>
+                                               value="{{ old("document_secondary_complement") }}"/>
                                     </label>
                                 </div>
 
@@ -103,13 +103,13 @@
                                     <label class="label">
                                         <span class="legend">*Data de Nascimento:</span>
                                         <input type="tel" name="date_of_birth" class="mask-date"
-                                               placeholder="Data de Nascimento" value=""/>
+                                               placeholder="Data de Nascimento" value="{{ old("date_of_birth") }}"/>
                                     </label>
 
                                     <label class="label">
                                         <span class="legend">*Naturalidade:</span>
                                         <input type="text" name="place_of_birth" placeholder="Cidade de Nascimento"
-                                               value=""/>
+                                               value="{{ old("place_of_birth") }}"/>
                                     </label>
                                 </div>
 
@@ -258,10 +258,16 @@
                                                 <input type="email" name="email" placeholder="Melhor e-mail"
                                                        value=""/>
                                             </label>
-
+                                        </div>
+                                        <div class="label_g2">
                                             <label class="label">
                                                 <span class="legend">Senha:</span>
                                                 <input type="password" name="password" placeholder="Senha de acesso"
+                                                       value=""/>
+                                            </label>
+                                            <label class="label">
+                                                <span class="legend">Confirme a Senha:</span>
+                                                <input type="password" name="password_confirm" placeholder="Confirme a senha de acesso"
                                                        value=""/>
                                             </label>
                                         </div>
@@ -281,8 +287,8 @@
                                         <label class="label">
                                             <span class="legend">Tipo de Comunhão:</span>
                                             <select name="type_of_communion" class="select2">
-                                                <option value=null>Selecione</option>
-                                                <option value="Comunhão Universal de Ben">Comunhão Universal de Bens
+                                                <option value="">Selecione</option>
+                                                <option value="Comunhão Universal de Bens">Comunhão Universal de Bens
                                                 </option>
                                                 <option value="Comunhão Parcial de Bens">Comunhão Parcial de Bens
                                                 </option>

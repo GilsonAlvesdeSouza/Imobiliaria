@@ -130,6 +130,16 @@ return [
         ],
     ],
 
+    'values' => [
+        'civil_status' => [
+            'married' => 'casado',
+            'separated' => 'separado',
+            'single' => 'solteiro',
+            'divorced' => 'divorciado',
+            'widower' => 'viúvo',
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -172,7 +182,46 @@ return [
         'title' => 'título',
         'username' => 'usuário',
         'year' => 'ano',
-        'genre' => 'gênero'
+
+        /** Person */
+        'genre' => 'gênero',
+        'document' => 'CPF',
+        'document_secondary' => 'RG',
+        'document_secondary_complement' => 'órgão expedidor',
+        'date_of_birth' => 'data de nascimento',
+        'place_of_birth' => 'naturalidade',
+        'civil_status' => 'estado civil',
+        'occupation' => 'ocupação',
+        'income' => 'renda',
+        'company_work' => 'empresa',
+
+        /** Address */
+        'zipcode' => 'CEP',
+        'street' => 'rua',
+        'number' => 'número',
+        'complement' => 'complemento',
+        'neighborhood' => 'bairro',
+
+        /** contact */
+        'telephone' => 'celular',
+        'cell' => 'celular',
+
+        /** validation */
+        'password_confirm' => 'confirme a senha',
+
+        /** Spouse */
+        'spouse_name' => 'nome do cônjuje',
+        'type_of_communion' => 'Tipo de comunhão',
+        'spouse_genre' => 'gênero',
+        'spouse_document' => 'CPF do cônjuje',
+        'spouse_document_secondary' => 'RG do cônjuje',
+        'spouse_document_secondary_complement' => 'órgão expedidor do cônjuje',
+        'spouse_date_of_birth' => 'data de nascimento do cônjuje',
+        'spouse_place_of_birth' => 'naturalidade do cônjuje',
+        'spouse_civil_status' => 'estado civil do cônjuje',
+        'spouse_occupation' => 'ocupação do cônjuje',
+        'spouse_income' => 'renda do cônjuje',
+        'spouse_company_work' => 'empresa do cônjuje',
     ],
 
 ];
