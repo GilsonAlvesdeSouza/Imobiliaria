@@ -47,7 +47,7 @@ class AlterUsersTable extends Migration
             $table->string('telephone')->nullable();
             $table->string('cell')->nullable();
 
-            /** souse */
+            /** spouse */
             $table->string('type_of_communion')->nullable();
             $table->string('spouse_name')->nullable();
             $table->string('spouse_genre')->nullable();

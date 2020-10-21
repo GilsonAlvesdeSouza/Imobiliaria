@@ -14,7 +14,7 @@ class Utils
     public static function clearField(?string $param)
     {
         if (empty($param)){
-            return '';
+            return null;
         }
 
         return  str_replace(['.', '-', '/', '(', ')', ' ' ], '', $param);

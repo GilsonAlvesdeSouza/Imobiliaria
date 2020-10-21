@@ -59,17 +59,17 @@ class UserRequest extends FormRequest
 
         // Spouse
         if (in_array($this->request->all()['civil_status'], ['married', 'separated'])) {
-            $rules['type_of_communion'] = 'required_if:civil_status,married,separated|in:Comunhão Universal de Bens,Comunhão Parcial de Bens,Separação Total de Bens,Participação Final de Aquestos';
-            $rules['spouse_name'] = 'min:3|max:191';
-            $rules['spouse_genre'] = 'required_if:civil_status,married,separated|in:male,female,other';
-            $rules['spouse_document'] = (!empty($this->request->all()['id']) ? 'required_if:civil_status,married,separated|min:11|max:14|unique:users,spouse_document,' . $this->request->all()['id'] : 'required_if:civil_status,married,separated|min:11|max:14|unique:users,spouse_document');
-            $rules['spouse_document_secondary'] = 'required_if:civil_status,married,separated|min:8|max:12';
-            $rules['spouse_document_secondary_complement'] = 'required_if:civil_status,married,separated';
-            $rules['spouse_date_of_birth'] = 'required_if:civil_status,married,separated|date_format:d/m/Y';
-            $rules['spouse_place_of_birth'] = 'required_if:civil_status,married,separated';
-            $rules['spouse_occupation'] = 'required_if:civil_status,married,separated';
-            $rules['spouse_income'] = 'required_if:civil_status,married,separated';
-            $rules['spouse_company_work'] = 'required_if:civil_status,married,separated';
+            $rules['type_of_communion'] = 'required|in:Comunhão Universal de Bens,Comunhão Parcial de Bens,Separação Total de Bens,Participação Final de Aquestos';
+            $rules['spouse_name'] = 'required|min:3|max:191';
+            $rules['spouse_genre'] = 'required|in:male,female,other';
+            $rules['spouse_document'] = (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,spouse_document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,spouse_document');
+            $rules['spouse_document_secondary'] = 'required|min:8|max:12';
+            $rules['spouse_document_secondary_complement'] = 'required';
+            $rules['spouse_date_of_birth'] = 'required|date_format:d/m/Y';
+            $rules['spouse_place_of_birth'] = 'required';
+            $rules['spouse_occupation'] = 'required';
+            $rules['spouse_income'] = 'required';
+            $rules['spouse_company_work'] = 'required';
         }
 
         return $rules;

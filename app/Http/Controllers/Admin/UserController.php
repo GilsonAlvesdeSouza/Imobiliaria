@@ -41,11 +41,9 @@ class UserController extends Controller
         try {
             $userCreate = User::create($request->all());
             toast('Dados salvos com sucesso!', 'success');
-            return view('admin.users.index');
         }catch (\Exception $exception){
             toast("Ocorreu um erro ao tentar salvar os dados!",'error');
             var_dump($exception);
-
         }
 
         return view('admin.users.index');

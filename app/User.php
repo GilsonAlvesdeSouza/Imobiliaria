@@ -93,10 +93,14 @@ class User extends Authenticatable
         return substr($value, 0, 3).".".substr($value, 3, 3).".".substr($value, 6, 3)."-".substr($value, 9, 2);
     }
 
-//    public function setDocumentAttribute($value)
-//    {
-//        $this->attributes['document'] = Utils::clearField($value);
-//    }
+    public function setDocumentAttribute($value)
+    {
+        if (empty($value)){
+            $this->attributes['document'] = null;
+            return;
+        }
+        $this->attributes['document'] = $value;
+    }
 
     public function setDateOfBirthAttribute($value)
     {
@@ -130,7 +134,11 @@ class User extends Authenticatable
 
     public function setSpouseDocumentAttribute($value)
     {
-        $this->attributes['spouse_document'] = Utils::clearField($value);
+        if (empty($value)){
+            $this->attributes['spouse_document'] = null;
+            return;
+        }
+        $this->attributes['spouse_document'] = $value;
     }
 
     public function setSpouseDateOfBirthAttribute($value)
