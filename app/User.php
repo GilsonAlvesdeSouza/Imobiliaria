@@ -88,10 +88,15 @@ class User extends Authenticatable
         $this->attributes['lessee'] = ($value === true || $value === 'on' ? 1 : 0);
     }
 
-    public function setDocumentAttribute($value)
+    public function getDocumentAttribute($value)
     {
-        $this->attributes['document'] = Utils::clearField($value);
+        return substr($value, 0, 3).".".substr($value, 3, 3).".".substr($value, 6, 3)."-".substr($value, 9, 2);
     }
+
+//    public function setDocumentAttribute($value)
+//    {
+//        $this->attributes['document'] = Utils::clearField($value);
+//    }
 
     public function setDateOfBirthAttribute($value)
     {
@@ -136,5 +141,15 @@ class User extends Authenticatable
     public function setSpouseIncomeAttribute($value)
     {
         $this->attributes['spouse_income'] = Utils::convertStringToDouble($value);
+    }
+
+    public function setAdminAttribute($value)
+    {
+        $this->attributes['admin'] = ($value === true || $value === 'on' ? 1 : 0);
+    }
+
+    public function setClientAttribute($value)
+    {
+        $this->attributes['client'] = ($value === true || $value === 'on' ? 1 : 0);
     }
 }
