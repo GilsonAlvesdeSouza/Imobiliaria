@@ -27,7 +27,7 @@
                 <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
                     <thead>
                     <tr>
-                        <th>#</th>
+{{--                        <th>#</th>--}}
                         <th>Nome Completo</th>
                         <th>CPF</th>
                         <th>E-mail</th>
@@ -35,13 +35,15 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($users as $user)
                     <tr>
-                        <td>1</td>
-                        <td><a href="" class="text-orange">Gustavo Web</a></td>
-                        <td>123.456.789-00</td>
-                        <td><a href="" class="text-orange">gustavo@upinside.com.br</a></td>
-                        <td>28/10/1992</td>
+{{--                        <td>1</td>--}}
+                        <td><a href="{{ route('admin.users.edit', ['user' => $user->id]) }}" class="text-orange">{{ $user->name }}</a></td>
+                        <td>{{ $user->document }}</td>
+                        <td><a href="mailto:{{ $user->email }}" class="text-orange">{{ $user->email }}</a></td>
+                        <td>{{ $user->date_of_birth }}</td>
                     </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

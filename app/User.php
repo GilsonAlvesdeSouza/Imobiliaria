@@ -88,10 +88,10 @@ class User extends Authenticatable
         $this->attributes['lessee'] = ($value === true || $value === 'on' ? 1 : 0);
     }
 
-    public function getDocumentAttribute($value)
-    {
-        return substr($value, 0, 3).".".substr($value, 3, 3).".".substr($value, 6, 3)."-".substr($value, 9, 2);
-    }
+//    public function getDocumentAttribute($value)
+//    {
+//        return substr($value, 0, 3).".".substr($value, 3, 3).".".substr($value, 6, 3)."-".substr($value, 9, 2);
+//    }
 
     public function setDocumentAttribute($value)
     {
