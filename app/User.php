@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LaraDev\Support\Utils;
+use phpDocumentor\Reflection\Types\Object_;
 
 class User extends Authenticatable
 {
@@ -80,26 +81,22 @@ class User extends Authenticatable
      */
     public function setLessorAttribute($value)
     {
-        $this->attributes['lessor'] = ($value === true || $value === 'on' ? 1 : 0);
+        $this->attributes['lessor'] = Utils::setValueCheckBox($value);
     }
 
     public function setLesseeAttribute($value)
     {
-        $this->attributes['lessee'] = ($value === true || $value === 'on' ? 1 : 0);
+        $this->attributes['lessee'] = Utils::setValueCheckBox($value);
     }
 
-//    public function getDocumentAttribute($value)
-//    {
-//        return substr($value, 0, 3).".".substr($value, 3, 3).".".substr($value, 6, 3)."-".substr($value, 9, 2);
-//    }
+    public function getDocumentAttribute($value)
+    {
+        return substr($value, 0, 3) . "." . substr($value, 3, 3) . "." . substr($value, 6, 3) . "-" . substr($value, 9, 2);
+    }
 
     public function setDocumentAttribute($value)
     {
-        if (empty($value)){
-            $this->attributes['document'] = null;
-            return;
-        }
-        $this->attributes['document'] = $value;
+        $this->attributes['document'] = Utils::clearField($value);
     }
 
     public function setDateOfBirthAttribute($value)
@@ -107,9 +104,19 @@ class User extends Authenticatable
         $this->attributes['date_of_birth'] = Utils::convertStringToDate($value);
     }
 
+    public function getDateOfBirthAttribute($value)
+    {
+        return Utils::convertDateToString($value);
+    }
+
     public function setIncomeAttribute($value)
     {
         $this->attributes['income'] = Utils::convertStringToDouble($value);
+    }
+
+    public function getIncomeAttribute($value)
+    {
+        return Utils::convertFloatToCurrency($value);
     }
 
     public function setZipcodeAttribute($value)
@@ -117,9 +124,19 @@ class User extends Authenticatable
         $this->attributes['zipcode'] = Utils::clearField($value);
     }
 
+    public function getTelephoneAttribute($value)
+    {
+        return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+    }
+
     public function setTelephoneAttribute($value)
     {
         $this->attributes['telephone'] = Utils::clearField($value);
+    }
+
+    public function getCellAttribute($value)
+    {
+        return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
     }
 
     public function setCellAttribute($value)
@@ -134,11 +151,7 @@ class User extends Authenticatable
 
     public function setSpouseDocumentAttribute($value)
     {
-        if (empty($value)){
-            $this->attributes['spouse_document'] = null;
-            return;
-        }
-        $this->attributes['spouse_document'] = $value;
+        $this->attributes['spouse_document'] = Utils::clearField($value);
     }
 
     public function setSpouseDateOfBirthAttribute($value)
@@ -146,18 +159,29 @@ class User extends Authenticatable
         $this->attributes['spouse_date_of_birth'] = Utils::convertStringToDate($value);
     }
 
+    public function getSpouseDateOfBirthAttribute($value)
+    {
+        return Utils::convertDateToString($value);
+    }
+
     public function setSpouseIncomeAttribute($value)
     {
         $this->attributes['spouse_income'] = Utils::convertStringToDouble($value);
     }
 
+    public function getSpouseIncomeAttribute($value)
+    {
+        return Utils::convertFloatToCurrency($value);
+    }
+
     public function setAdminAttribute($value)
     {
-        $this->attributes['admin'] = ($value === true || $value === 'on' ? 1 : 0);
+        $this->attributes['admin'] = Utils::setValueCheckBox($value);
     }
 
     public function setClientAttribute($value)
     {
-        $this->attributes['client'] = ($value === true || $value === 'on' ? 1 : 0);
+        $this->attributes['client'] = Utils::setValueCheckBox($value);
     }
+
 }

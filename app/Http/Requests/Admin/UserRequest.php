@@ -4,6 +4,7 @@ namespace LaraDev\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use LaraDev\Support\Utils;
 
 class UserRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class UserRequest extends FormRequest
         $rules = [
             'name' => 'required|min:3|max:191',
             'genre' => 'in:male,female,other',
-            'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,document'),
+            'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14'),
             'document_secondary' => 'required|min:8|max:12',
             'document_secondary_complement' => 'required',
             'date_of_birth' => 'required|date_format:d/m/Y',
@@ -52,7 +53,7 @@ class UserRequest extends FormRequest
             'cell' => 'required',
 
             // Access
-            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
+            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email'),
             'password' => 'required|min:8',
             'password_confirm' => 'required|same:password',
         ];
@@ -62,7 +63,7 @@ class UserRequest extends FormRequest
             $rules['type_of_communion'] = 'required|in:Comunhão Universal de Bens,Comunhão Parcial de Bens,Separação Total de Bens,Participação Final de Aquestos';
             $rules['spouse_name'] = 'required|min:3|max:191';
             $rules['spouse_genre'] = 'required|in:male,female,other';
-            $rules['spouse_document'] = (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,spouse_document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,spouse_document');
+            $rules['spouse_document'] = (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,spouse_document,' . $this->request->all()['id'] : 'required|min:11|max:14');
             $rules['spouse_document_secondary'] = 'required|min:8|max:12';
             $rules['spouse_document_secondary_complement'] = 'required';
             $rules['spouse_date_of_birth'] = 'required|date_format:d/m/Y';
@@ -73,5 +74,16 @@ class UserRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    /**
+     * método mágico do request para fazer as validações
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'document' => Utils::clearField($this->document),
+            'spouse_document' => Utils::clearField($this->spouse_document),
+        ]);
     }
 }

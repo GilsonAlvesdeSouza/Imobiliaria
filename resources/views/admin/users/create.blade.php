@@ -283,12 +283,12 @@
                                     </div>
                                     <div class="label_g2">
                                         <label class="label">
-                                            <span class="legend">Senha:</span>
-                                            <input type="password" name="password" placeholder="Senha de acesso"
+                                            <span class="legend">*Senha:</span>
+                                            <input type="text" name="password" placeholder="Senha de acesso"
                                                    value="{{ old('password') }}"/>
                                         </label>
                                         <label class="label">
-                                            <span class="legend">Confirme a Senha:</span>
+                                            <span class="legend">*Confirme a Senha:</span>
                                             <input type="password" name="password_confirm"
                                                    placeholder="Confirme a senha de acesso"
                                                    value="{{ old('password') }}"/>

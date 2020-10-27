@@ -46,7 +46,6 @@ class UserController extends Controller
             toast('Dados salvos com sucesso!', 'success');
         } catch (\Exception $exception) {
             toast("Ocorreu um erro ao tentar salvar os dados!", 'error');
-            var_dump($exception);
         }
 
         return redirect()->route('admin.users.index');
@@ -72,6 +71,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
+
         return view('admin.users.edit', [
             'user' => $user,
         ]);
@@ -86,7 +86,21 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::where('id', $id)->first();
+
+        $user->setLessorAttribute($request->lessor);
+        $user->setLesseeAttribute($request->lessee);
+        $user->setClientAttribute($request->client);
+        $user->setAdminAttribute($request->admin);
+
+        $user->fill($request->all());
+        try {
+            $user->save();
+            return redirect()->route('admin.users.index')->with('toast_success', 'Dados alterados com sucesso!');
+        } catch (\Exception $e) {
+            toast("Ocorreu um erro ao tentar alterar os dados!", 'error');
+            return redirect()->route('admin.users.index')->with('toast_error', 'Dados alterados com sucesso!');
+        }
     }
 
     /**

@@ -55,13 +55,15 @@
                             <div class="label_gc">
                                 <span class="legend">Perfil:</span>
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="lessor" {{ (old('lessor') =='on' || old('lessor') == true ? 'checked' : ($user->lessor == true) ? 'checked' : '') }}><span>Locatário</span>
+                                    <input type="checkbox" id="lessor"
+                                           name="lessor"  {{ (old('checkLessor') == 'on'  ? 'checked' :  (old('checkLessor') == 'off' ? '' :  $user->lessor == 1 ? 'checked' : ''))  }} ><span>Locador</span>
+                                    <input type="hidden" id="checkLessor" name="checkLessor" value="">
                                 </label>
 
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="lessee" {{ (old('lessee') =='on' || old('lessee') == true ? 'checked' : ($user->lessor == true) ? 'checked' : '') }}><span>Locador</span>
+                                    <input type="checkbox" id="lessee"
+                                           name="lessee"  {{ (old('checkLessee') == 'on'  ? 'checked' :  (old('checkLessee') == 'off' ? '' :  $user->lessee == 1 ? 'checked' : ''))  }} ><span>Locatário</span>
+                                    <input type="hidden" id="checkLessee" name="checkLessee" value="">
                                 </label>
                             </div>
 
@@ -76,12 +78,17 @@
                                     <span class="legend">*Genero:</span>
                                     <select name="genre">
                                         <option value="">Selecione</option>
-                                        <option value="male" {{ (old('genre') == 'male' ? 'selected' : ($user->genre  == 'male' ? 'selected' : '')) }}>Masculino
+                                        <option
+                                            value="male" {{ (old('genre') == 'male' ? 'selected' : ($user->genre  == 'male' ? 'selected' : '')) }}>
+                                            Masculino
                                         </option>
-                                        <option value="female" {{ (old('genre') == 'female' ? 'selected' : ($user->genre == 'female' ? 'selected' : '')) }}>
+                                        <option
+                                            value="female" {{ (old('genre') == 'female' ? 'selected' : ($user->genre == 'female' ? 'selected' : '')) }}>
                                             Feminino
                                         </option>
-                                        <option value="other" {{ (old('genre') == 'other' ? 'selected' : ($user->genre == 'other' ? 'selected' : '')) }}>Outros
+                                        <option
+                                            value="other" {{ (old('genre') == 'other' ? 'selected' : ($user->genre == 'other' ? 'selected' : '')) }}>
+                                            Outros
                                         </option>
                                     </select>
                                 </label>
@@ -133,7 +140,7 @@
                                                 Casado
                                             </option>
                                             <option
-                                                value="separated" {{ (old('civil_status') == 'single' ? 'selected' : ($user->civil_status == 'single' ? 'selected' : '')) }}>
+                                                value="separated" {{ (old('civil_status') == 'separated' ? 'selected' : ($user->civil_status == 'separated' ? 'selected' : '')) }}>
                                                 Separado
                                             </option>
                                         </optgroup>
@@ -416,7 +423,8 @@
                                         <label class="label">
                                             <span class="legend">Renda:</span>
                                             <input type="text" class="mask-money" name="spouse_income"
-                                                   placeholder="Valores em Reais" value="{{ old('spouse_income') ?? $user->spouse_income }}"/>
+                                                   placeholder="Valores em Reais"
+                                                   value="{{ old('spouse_income') ?? $user->spouse_income }}"/>
                                         </label>
                                     </div>
 
@@ -488,8 +496,8 @@
                                                             <span class="icon-realty-location"></span>
                                                         </div>
                                                         <div class="realty_list_item_card_content">
-                                                                <span
-                                                                    class="realty_list_item_description_title">Bairro:</span>
+               <span
+                   class="realty_list_item_description_title">Bairro:</span>
                                                             <span
                                                                 class="realty_list_item_description_content">Campeche</span>
                                                         </div>
@@ -500,8 +508,8 @@
                                                             <span class="icon-realty-util-area"></span>
                                                         </div>
                                                         <div class="realty_list_item_card_content">
-                                                            <span
-                                                                class="realty_list_item_description_title">Área Útil:</span>
+           <span
+               class="realty_list_item_description_title">Área Útil:</span>
                                                             <span class="realty_list_item_description_content">150m&sup2;</span>
                                                         </div>
                                                     </div>
@@ -511,8 +519,8 @@
                                                             <span class="icon-realty-bed"></span>
                                                         </div>
                                                         <div class="realty_list_item_card_content">
-                                                            <span
-                                                                class="realty_list_item_description_title">Domitórios:</span>
+           <span
+               class="realty_list_item_description_title">Domitórios:</span>
                                                             <span class="realty_list_item_description_content">4 Quartos<br><span>Sendo 2 suítes</span></span>
                                                         </div>
                                                     </div>
@@ -522,8 +530,8 @@
                                                             <span class="icon-realty-garage"></span>
                                                         </div>
                                                         <div class="realty_list_item_card_content">
-                                                            <span
-                                                                class="realty_list_item_description_title">Garagem:</span>
+           <span
+               class="realty_list_item_description_title">Garagem:</span>
                                                             <span
                                                                 class="realty_list_item_description_content">4 Vagas<br><span>Sendo 2 cobertas</span></span>
                                                         </div>
@@ -567,24 +575,64 @@
                             <div class="label_gc">
                                 <span class="legend">Conceder:</span>
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="admin" {{ (old('admin') == 'on'|| old('admin') == true ? 'checked' : ($user->admin == true) ? 'checked' : '') }}><span>Administrativo</span>
+                                    <input type="checkbox" id="admin"
+                                           name="admin"  {{ (old('checkAdmin') == 'on'  ? 'checked' :  (old('checkAdmin') == 'off' ? '' :  $user->admin == 1 ? 'checked' : ''))  }} ><span>Administrador</span>
+                                    <input type="hidden" id="checkAdmin" name="checkAdmin" value="">
                                 </label>
 
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="client" {{ (old('client') == 'on' || old('client') == true ? 'checked' : ($user->client == true) ? 'checked' : '') }}><span>Cliente</span>
+                                    <input type="checkbox" id="client"
+                                           name="client"  {{ (old('checkClient') == 'on'  ? 'checked' :  (old('checkClient') == 'off' ? '' :  $user->client == 1 ? 'checked' : ''))  }} ><span>Cliente</span>
+                                    <input type="hidden" id="checkClient" name="checkClient" value="">
                                 </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                        <button class="btn btn-large btn-green icon-check-square-o" id="btnSubmit" type="submit">Salvar Alterações
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+            var chkLessor = document.getElementById("lessor");
+            var chkLessee = document.getElementById("lessee");
+            var chkAdmin = document.getElementById("admin");
+            var chkClient = document.getElementById("client");
+
+            document.getElementById("btnSubmit").onclick = function () {
+                if (chkLessor.checked) {
+                    document.getElementById("checkLessor").value = 'on';
+                } else {
+                    document.getElementById("checkLessor").value = 'off';
+
+                }
+
+                if (chkLessee.checked) {
+                    document.getElementById("checkLessee").value = 'on';
+                } else {
+                    document.getElementById("checkLessee").value = 'off';
+
+                }
+                if (chkAdmin.checked) {
+                    document.getElementById("checkAdmin").value = 'on';
+                } else {
+                    document.getElementById("checkAdmin").value = 'off';
+
+                }
+
+                if (chkClient.checked) {
+                    document.getElementById("checkClient").value = 'on';
+                } else {
+                    document.getElementById("checkClient").value = 'off';
+
+                }
+            };
+    </script>
 @endsection

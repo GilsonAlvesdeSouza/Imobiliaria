@@ -13,11 +13,11 @@ class Utils
      */
     public static function clearField(?string $param)
     {
-        if (empty($param)){
+        if (empty($param)) {
             return null;
         }
 
-        return  str_replace(['.', '-', '/', '(', ')', ' ' ], '', $param);
+        return str_replace(['.', '-', '/', '(', ')', ' '], '', $param);
     }
 
     /**
@@ -27,12 +27,25 @@ class Utils
      */
     public static function convertStringToDate(?string $param)
     {
-        if (empty($param)){
+        if (empty($param)) {
             return null;
         }
 
         list($day, $month, $year) = explode('/', $param);
         return (new \DateTime("$day-$month-$year"))->format("Y-m-d");
+    }
+
+    /**
+     * converte data da base de dados para o formato PT-br
+     * @param string|null $param
+     * @return false|string|null
+     */
+    public static function convertDateToString(?string $param)
+    {
+        if (empty($param)){
+            return null;
+        }
+        return date("d/m/Y", strtotime($param));
     }
 
     /**
@@ -42,9 +55,32 @@ class Utils
      */
     public static function convertStringToDouble(?string $param)
     {
-        if (empty($param)){
+        if (empty($param)) {
             return null;
         }
-        return doubleval(str_replace(',', '.', str_replace('.', '', $param )));
+        return doubleval(str_replace(',', '.', str_replace('.', '', $param)));
+    }
+
+    /**
+     * converte o valor da renda do cliente na base de dados em formato de moeda
+     * @param $param
+     * @return string|null
+     */
+    public static function convertFloatToCurrency($param)
+    {
+        if (empty($param)) {
+            return null;
+        }
+        return number_format($param, '2', ',', '.');
+    }
+
+    /**
+     * Seta o valor do checkbox para ser salvo na base de dados
+     * @param $value
+     * @return int
+     */
+    public static function setValueCheckBox($value )
+    {
+       return ($value === true || $value == 'on' ? 1 : 0);
     }
 }
