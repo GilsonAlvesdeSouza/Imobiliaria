@@ -611,27 +611,24 @@
                     document.getElementById("checkLessor").value = 'on';
                 } else {
                     document.getElementById("checkLessor").value = 'off';
-
                 }
 
                 if (chkLessee.checked) {
                     document.getElementById("checkLessee").value = 'on';
                 } else {
                     document.getElementById("checkLessee").value = 'off';
-
                 }
+
                 if (chkAdmin.checked) {
                     document.getElementById("checkAdmin").value = 'on';
                 } else {
                     document.getElementById("checkAdmin").value = 'off';
-
                 }
 
                 if (chkClient.checked) {
                     document.getElementById("checkClient").value = 'on';
                 } else {
                     document.getElementById("checkClient").value = 'off';
-
                 }
             };
     </script>

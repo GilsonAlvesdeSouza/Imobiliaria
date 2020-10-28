@@ -54,8 +54,8 @@ class UserRequest extends FormRequest
 
             // Access
             'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email'),
-            'password' => 'required|min:8',
-            'password_confirm' => 'required|same:password',
+            'password' => 'required|min:3',
+            'password_confirm' => 'same:password',
         ];
 
         // Spouse

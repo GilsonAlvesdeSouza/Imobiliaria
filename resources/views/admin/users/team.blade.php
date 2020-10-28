@@ -24,16 +24,16 @@
             @foreach($users as $user)
             <article class="user radius">
                 <div class="cover"
-                     style="background-size: cover; background-image: url('assets/images/avatar.jpg');"></div>
+                     style="background-size: cover; background-image: url({{ $user->url_cover }});"></div>
                 <h4>{{ $user->name }}</h4>
 
                 <div class="info">
                     <p>{{ $user->email }}</p>
-                    <p>Desde {{ $user->created_at }}</p>
+                    <p>Último acesso: {{ date('d/m/Y', strtotime($user->last_login_at)) }}</p>
                 </div>
 
                 <div class="actions">
-                    <a class="icon-cog btn btn-orange" href="" title="">Gerenciar</a>
+                    <a class="icon-cog btn btn-orange" href="{{ route('admin.users.edit', ['user' => $user->id]) }}" title="">Gerenciar</a>
                 </div>
             </article>
             @endforeach
