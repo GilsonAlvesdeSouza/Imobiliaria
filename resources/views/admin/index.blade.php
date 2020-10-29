@@ -33,7 +33,7 @@
 
                 <label>
                     <span class="field icon-unlock-alt">Senha:</span>
-                    <input type="password" name="password_check" placeholder="Informe sua senha" />
+                    <input type="password" name="password_check" placeholder="Informe sua senha" value="123"/>
                 </label>
 
                 <button class="gradient gradient-orange radius icon-sign-in">Entrar</button>

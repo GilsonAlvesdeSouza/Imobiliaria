@@ -9,11 +9,11 @@
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
-                        <li><a href="">Dashboard</a></li>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="">Clientes</a></li>
+                        <li><a href="{{ route('admin.users.index') }}">Clientes</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-orange">Novo Cliente</a></li>
+                        <li><a href="{{ route('admin.users.create') }}" class="text-orange">Novo Cliente</a></li>
                     </ul>
                 </nav>
             </div>
@@ -49,20 +49,20 @@
 
                     @csrf
                     @method('PUT')
-
+                    <input type="hidden"  name="id" value="{{ $user->id }}">
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_gc">
                                 <span class="legend">Perfil:</span>
                                 <label class="label">
                                     <input type="checkbox" id="lessor"
-                                           name="lessor"  {{ (old('checkLessor') == 'on'  ? 'checked' :  (old('checkLessor') == 'off' ? '' :  $user->lessor == 1 ? 'checked' : ''))  }} ><span>Locador</span>
+                                           name="lessor" {{ (old('checkLessor') == 'on'  ? 'checked' :  (old('checkLessor') == 'off' ? '' :  $user->lessor == 1 ? 'checked' : ''))  }} ><span>Locador</span>
                                     <input type="hidden" id="checkLessor" name="checkLessor" value="">
                                 </label>
 
                                 <label class="label">
                                     <input type="checkbox" id="lessee"
-                                           name="lessee"  {{ (old('checkLessee') == 'on'  ? 'checked' :  (old('checkLessee') == 'off' ? '' :  $user->lessee == 1 ? 'checked' : ''))  }} ><span>Locatário</span>
+                                           name="lessee" {{ (old('checkLessee') == 'on'  ? 'checked' :  (old('checkLessee') == 'off' ? '' :  $user->lessee == 1 ? 'checked' : ''))  }} ><span>Locatário</span>
                                     <input type="hidden" id="checkLessee" name="checkLessee" value="">
                                 </label>
                             </div>
@@ -481,7 +481,8 @@
                                         <div class="realty_list">
                                             <div class="realty_list_item mb-1">
                                                 <div class="realty_list_item_actions_stats">
-                                                    <img src="assets/images/realty.jpeg" alt="">
+                                                    <img src="{{ url(asset('backend/assets/images/realty.jpeg')) }}"
+                                                         alt="">
                                                     <ul>
                                                         <li>Venda: R$ 450.000,00</li>
                                                         <li>Aluguel: R$ 2.000,00</li>
@@ -576,13 +577,13 @@
                                 <span class="legend">Conceder:</span>
                                 <label class="label">
                                     <input type="checkbox" id="admin"
-                                           name="admin"  {{ (old('checkAdmin') == 'on'  ? 'checked' :  (old('checkAdmin') == 'off' ? '' :  $user->admin == 1 ? 'checked' : ''))  }} ><span>Administrador</span>
+                                           name="admin" {{ (old('checkAdmin') == 'on'  ? 'checked' :  (old('checkAdmin') == 'off' ? '' :  $user->admin == 1 ? 'checked' : ''))  }} ><span>Administrador</span>
                                     <input type="hidden" id="checkAdmin" name="checkAdmin" value="">
                                 </label>
 
                                 <label class="label">
                                     <input type="checkbox" id="client"
-                                           name="client"  {{ (old('checkClient') == 'on'  ? 'checked' :  (old('checkClient') == 'off' ? '' :  $user->client == 1 ? 'checked' : ''))  }} ><span>Cliente</span>
+                                           name="client" {{ (old('checkClient') == 'on'  ? 'checked' :  (old('checkClient') == 'off' ? '' :  $user->client == 1 ? 'checked' : ''))  }} ><span>Cliente</span>
                                     <input type="hidden" id="checkClient" name="checkClient" value="">
                                 </label>
                             </div>
@@ -590,7 +591,8 @@
                     </div>
 
                     <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" id="btnSubmit" type="submit">Salvar Alterações
+                        <button class="btn btn-large btn-green icon-check-square-o" id="btnSubmit" type="submit">Salvar
+                            Alterações
                         </button>
                     </div>
                 </form>
@@ -601,35 +603,35 @@
 
 @section('js')
     <script>
-            var chkLessor = document.getElementById("lessor");
-            var chkLessee = document.getElementById("lessee");
-            var chkAdmin = document.getElementById("admin");
-            var chkClient = document.getElementById("client");
+        var chkLessor = document.getElementById("lessor");
+        var chkLessee = document.getElementById("lessee");
+        var chkAdmin = document.getElementById("admin");
+        var chkClient = document.getElementById("client");
 
-            document.getElementById("btnSubmit").onclick = function () {
-                if (chkLessor.checked) {
-                    document.getElementById("checkLessor").value = 'on';
-                } else {
-                    document.getElementById("checkLessor").value = 'off';
-                }
+        document.getElementById("btnSubmit").onclick = function () {
+            if (chkLessor.checked) {
+                document.getElementById("checkLessor").value = 'on';
+            } else {
+                document.getElementById("checkLessor").value = 'off';
+            }
 
-                if (chkLessee.checked) {
-                    document.getElementById("checkLessee").value = 'on';
-                } else {
-                    document.getElementById("checkLessee").value = 'off';
-                }
+            if (chkLessee.checked) {
+                document.getElementById("checkLessee").value = 'on';
+            } else {
+                document.getElementById("checkLessee").value = 'off';
+            }
 
-                if (chkAdmin.checked) {
-                    document.getElementById("checkAdmin").value = 'on';
-                } else {
-                    document.getElementById("checkAdmin").value = 'off';
-                }
+            if (chkAdmin.checked) {
+                document.getElementById("checkAdmin").value = 'on';
+            } else {
+                document.getElementById("checkAdmin").value = 'off';
+            }
 
-                if (chkClient.checked) {
-                    document.getElementById("checkClient").value = 'on';
-                } else {
-                    document.getElementById("checkClient").value = 'off';
-                }
-            };
+            if (chkClient.checked) {
+                document.getElementById("checkClient").value = 'on';
+            } else {
+                document.getElementById("checkClient").value = 'off';
+            }
+        };
     </script>
 @endsection

@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
         $rules = [
             'name' => 'required|min:3|max:191',
             'genre' => 'in:male,female,other',
-            'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14'),
+            'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,document'),
             'document_secondary' => 'required|min:8|max:12',
             'document_secondary_complement' => 'required',
             'date_of_birth' => 'required|date_format:d/m/Y',
@@ -53,7 +53,7 @@ class UserRequest extends FormRequest
             'cell' => 'required',
 
             // Access
-            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email'),
+            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
             'password' => 'required|min:3',
             'password_confirm' => 'same:password',
         ];
