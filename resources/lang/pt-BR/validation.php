@@ -222,6 +222,13 @@ return [
         'spouse_occupation' => 'ocupação do cônjuje',
         'spouse_income' => 'renda do cônjuje',
         'spouse_company_work' => 'empresa do cônjuje',
+
+        /** Company */
+        'user' => 'responsável legal',
+        'social_name' => 'razão social',
+        'alias_name' => 'nome fantasia',
+        'document_company' => 'CNPJ',
+        'document_company_secondary' => 'inscrição estadual',
     ],
 
 ];

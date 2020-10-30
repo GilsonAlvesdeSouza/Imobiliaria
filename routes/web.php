@@ -19,11 +19,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     /** Rotas protegidas */
     Route::group(['middleware' => ['auth']], function () {
+
         /** Dashborad Home */
         Route::get('home', 'AuthController@home')->name('home');
 
+        /** Users */
         Route::get('users/team', 'UserController@team')->name('users.team');
         Route::resource('users', 'UserController');
+
+        /** Companies */
+        Route::resource('companies', 'CompanyController');
     });
 
     /** logout */
