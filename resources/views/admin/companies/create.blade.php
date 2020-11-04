@@ -37,7 +37,21 @@
                     <label class="label">
                         <span class="legend">Responsável Legal:</span>
                         <select name="user" class="select2">
-                            <option value="1" selected>Gilson Alves de Souza</option>
+                            <option value="">Selecione um responsável legal
+                            </option>
+                            @foreach($users as $user)
+                                @if(!empty($userSelected))
+                                    <option
+                                        value="{{ $user->id }}" {{ ($user->id === $userSelected->id ? 'selected' : '') }}> {{ $user->name }}
+                                        ({{ $user->document }})
+                                    </option>
+                                @else
+                                    <option
+                                        value="{{ $user->id }}"> {{ $user->name }}
+                                        ({{ $user->document }})
+                                    </option>
+                                @endif
+                            @endforeach
                         </select>
                         <p style="margin-top: 4px;">
                             <a href="" class="text-orange icon-link" style="font-size: .8em;" target="_blank">Acessar
@@ -47,12 +61,14 @@
 
                     <label class="label">
                         <span class="legend">*Razão Social:</span>
-                        <input type="text" name="social_name" placeholder="Razão Social" value="{{ old('social_name') }}"/>
+                        <input type="text" name="social_name" placeholder="Razão Social"
+                               value="{{ old('social_name') }}"/>
                     </label>
 
                     <label class="label">
                         <span class="legend">Nome Fantasia:</span>
-                        <input type="text" name="alias_name" placeholder="Nome Fantasia" value="{{ old('alias_name') }}"/>
+                        <input type="text" name="alias_name" placeholder="Nome Fantasia"
+                               value="{{ old('alias_name') }}"/>
                     </label>
 
                     <div class="label_g2">
@@ -93,12 +109,14 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Número:</span>
-                                    <input type="text" name="number" placeholder="Número do Endereço" value="{{ old('number') }}"/>
+                                    <input type="text" name="number" placeholder="Número do Endereço"
+                                           value="{{ old('number') }}"/>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">Complemento:</span>
-                                    <input type="text" name="complement" placeholder="Completo (Opcional)" value="{{ old('complement') }}"/>
+                                    <input type="text" name="complement" placeholder="Completo (Opcional)"
+                                           value="{{ old('complement') }}"/>
                                 </label>
                             </div>
 
@@ -111,12 +129,14 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Estado:</span>
-                                    <input type="text" name="state" class="state" placeholder="Estado" value="{{ old('state') }}"/>
+                                    <input type="text" name="state" class="state" placeholder="Estado"
+                                           value="{{ old('state') }}"/>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">*Cidade:</span>
-                                    <input type="text" name="city" class="city" placeholder="Cidade" value="{{ old('city') }}"/>
+                                    <input type="text" name="city" class="city" placeholder="Cidade"
+                                           value="{{ old('city') }}"/>
                                 </label>
                             </div>
                         </div>
