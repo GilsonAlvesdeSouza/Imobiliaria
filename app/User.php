@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
+use LaraDev\Model\Admin\Company;
 use LaraDev\Suporte\Cropper;
 use LaraDev\Support\Utils;
 use phpDocumentor\Reflection\Types\Object_;
@@ -77,6 +78,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'user', 'id');
+    }
 
     public function getUrlCoverAttribute()
     {

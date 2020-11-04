@@ -26,6 +26,7 @@ class CompanyRequest extends FormRequest
     {
         return [
             // Company
+            'users' => 'request',
             'social_name' => 'required|min:10|max:200',
             'alias_name' => 'required|min:10|max:200',
             'document_company' => 'required',

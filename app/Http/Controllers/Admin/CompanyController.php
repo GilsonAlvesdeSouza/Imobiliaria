@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\admin\CompanyRequest;
 use LaraDev\Model\Admin\Company;
+use LaraDev\User;
 
 class CompanyController extends Controller
 {
@@ -16,7 +17,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('admin.companies.index');
+        $companies = Company::all();
+
+        return view('admin.companies.index', [
+            'companies' => $companies,
+        ]);
     }
 
     /**
@@ -32,22 +37,24 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request)
     {
-        $company = new Company();
-        $company->fill($request->all());
-
-        var_dump($company->getAttributes());
-        dd($company->getAttributes());
+        try {
+            $createCompany = Company::create($request->all());
+            toast('Dados salvos com sucesso!', 'success');
+        } catch (\Exception $exception) {
+            toast("Ocorreu um erro ao tentar salvar os dados!", 'error');
+        }
+        return redirect()->route('admin.companies.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -58,30 +65,42 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $company = Company::where('id', $id)->first();
+        $users = User::orderBy('name', 'ASC')->get();
+        return view('admin.companies.edit', [
+            'company' => $company,
+            'users' => $users
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
-        //
+        $company = Company::where('id', $id)->first();
+        $company->fill($request->all());
+        $company->save();
+
+        toast('Dados salvos com sucesso!', 'success');
+        return redirect()->route('admin.companies.edit', [
+            'company' => $company->id
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
