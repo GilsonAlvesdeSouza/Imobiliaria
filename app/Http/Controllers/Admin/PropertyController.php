@@ -4,7 +4,9 @@ namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\Http\Requests\Admin\PropertyRequest;
 use LaraDev\Model\Admin\Property;
+use LaraDev\User;
 
 class PropertyController extends Controller
 {
@@ -25,7 +27,10 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('admin.properties.create');
+        $users = User::orderBy('name')->get();
+        return view('admin.properties.create',[
+            'users' => $users
+        ]);
     }
 
     /**
@@ -34,7 +39,7 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PropertyRequest $request)
     {
         $property = new Property();
         $property->fill($request->all());

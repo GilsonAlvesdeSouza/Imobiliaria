@@ -47,8 +47,7 @@
                                     </option>
                                 @else
                                     <option
-                                        value="{{ $user->id }}"> {{ $user->name }}
-                                        ({{ $user->document }})
+                                        value="{{ $user->id }}" {{ (old('user') == $user->id ? 'selected' : '') }}>{{ $user->name }} ({{ $user->document }})
                                     </option>
                                 @endif
                             @endforeach
