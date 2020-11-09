@@ -81,6 +81,6 @@ class Utils
      */
     public static function setValueCheckBox($value )
     {
-       return ($value === true || $value == 'on' ? 1 : 0);
+       return ($value === true || $value == 'on'  ? 1 : 0);
     }
 }

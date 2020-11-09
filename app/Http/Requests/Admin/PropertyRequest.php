@@ -4,6 +4,7 @@ namespace LaraDev\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use LaraDev\Support\Utils;
 
 class PropertyRequest extends FormRequest
 {
@@ -50,5 +51,14 @@ class PropertyRequest extends FormRequest
             'state' => 'required',
             'city' => 'required',
         ];
+    }
+
+    /**
+     * método mágico do request para fazer as validações
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+        ]);
     }
 }

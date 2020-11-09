@@ -34,7 +34,7 @@ class CreatePropertiesTable extends Migration
             $table->integer('bathrooms')->default('0');
             $table->integer('rooms')->default('0');
             $table->integer('garage')->default('0');
-            $table->integer('garege_covered')->default('0');
+            $table->integer('garage_covered')->default('0');
             $table->integer('area_total')->default('0');
             $table->integer('area_util')->default('0');
 
@@ -59,6 +59,7 @@ class CreatePropertiesTable extends Migration
             $table->boolean('office')->nullable();
             $table->boolean('bathtub')->nullable();
             $table->boolean('fireplace')->nullable();
+            $table->boolean('lavatory')->nullable();
             $table->boolean('furnished')->nullable();
             $table->boolean('pool')->nullable();
             $table->boolean('steam_room')->nullable();
