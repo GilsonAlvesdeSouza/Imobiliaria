@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use LaraDev\Model\Admin\Company;
+use LaraDev\Model\Admin\Property;
 use LaraDev\Suporte\Cropper;
 use LaraDev\Support\Utils;
 use phpDocumentor\Reflection\Types\Object_;
@@ -82,6 +83,11 @@ class User extends Authenticatable
     public function companies()
     {
         return $this->hasMany(Company::class, 'user', 'id');
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'user', 'id');
     }
 
     public function getUrlCoverAttribute()

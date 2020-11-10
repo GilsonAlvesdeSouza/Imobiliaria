@@ -4,6 +4,7 @@ namespace LaraDev\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use LaraDev\Support\Utils;
+use LaraDev\User;
 
 class Property extends Model
 {
@@ -51,6 +52,10 @@ class Property extends Model
         'view_of_the_sea',
         'status'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
 
     public function getSalePriceAttribute($value)
     {

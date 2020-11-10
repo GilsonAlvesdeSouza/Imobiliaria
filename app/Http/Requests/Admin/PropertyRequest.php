@@ -27,8 +27,8 @@ class PropertyRequest extends FormRequest
     {
         return [
             'user' => 'required',
-            'category' => 'required|in:residential_property,commercial_industrial,terrain',
-            'type' => 'required|in:home,roof,apartment,studio,kitnet,commercial_room,deposit_shed,commercial_point,terrain',
+            'category' => 'required|in:Imóvel Residencial,Comercial/Industrial,Terreno',
+            'type' => 'required|in:Casa,Cobertura,Apartamento,Kitnet,Sala Comercial,Depósito/Galpão,Ponto Comercial,Terreno',
             'sale_price' => 'required_if:sale,on',
             'rent_price' => 'required_if:rent,on',
             'tribute' => 'required',

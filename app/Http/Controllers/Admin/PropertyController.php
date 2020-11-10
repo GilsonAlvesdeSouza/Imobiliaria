@@ -17,7 +17,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
+        $properties = Property::orderBy('id', 'DESC')->get();
         return view('admin.properties.index', [
             'properties' => $properties
         ]);
@@ -114,7 +114,18 @@ class PropertyController extends Controller
         $property->setSteamRoomAttribute($request->steam_room);
         $property->setViewOfTheSeaAttribute($request->view_of_theSea);
 
-        dd($property->getAttributes(), $request->sale);
+        try {
+        $property->save();
+            toast('Dados alterados com sucesso!', 'success');
+            return redirect()->route('admin.properties.edit', [
+                'property' => $property->id
+            ]);
+        } catch (\Exception $exception) {
+            toast("Ocorreu um erro ao tentar alterar os dados!", 'error');
+            return redirect()->route('admin.properties.edit', [
+                'property' => $property->id
+            ]);
+        }
     }
 
     /**

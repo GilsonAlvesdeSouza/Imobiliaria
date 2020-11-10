@@ -66,14 +66,14 @@
                                     <select name="category" class="select2">
                                         <option value="{{ null }}">Selecione uma opção</option>
                                         <option
-                                            value="residential_property" {{ (old('category') == 'residential_property' ? 'selected' : '') }}>
+                                            value="Imóvel Residencial" {{ (old('category') == 'Imóvel Residencial' ? 'selected' : '') }}>
                                             Imóvel Residencial
                                         </option>
                                         <option
-                                            value="commercial_industrial" {{ (old('category') == 'commercial_industrial' ? 'selected' : '') }}>
+                                            value=" Comercial/Industrial" {{ (old('category') == ' Comercial/Industrial' ? 'selected' : '') }}>
                                             Comercial/Industrial
                                         </option>
-                                        <option value="terrain" {{ (old('category') == 'on' ? 'terrain' : '') }}>
+                                        <option value="Terreno" {{ (old('category') == 'on' ? 'Terreno' : '') }}>
                                             Terreno
                                         </option>
                                     </select>
@@ -84,38 +84,38 @@
                                     <select name="type" class="select2">
                                         <option value="{{ null }}">Selecione uma opção</option>
                                         <optgroup label="Imóvel Residencial">
-                                            <option value="home" {{ (old('type') == 'home' ? 'selected' : '') }}>Casa
+                                            <option value="Casa" {{ (old('type') == 'Casa' ? 'selected' : '') }}>Casa
                                             </option>
-                                            <option value="roof" {{ (old('type') == 'roof' ? 'selected' : '') }}>
+                                            <option value="Cobertura" {{ (old('type') == 'Cobertura' ? 'selected' : '') }}>
                                                 Cobertura
                                             </option>
                                             <option
-                                                value="apartment" {{ (old('type') == 'apartment' ? 'selected' : '') }}>
+                                                value="Apartamento" {{ (old('type') == 'Apartamento' ? 'selected' : '') }}>
                                                 Apartamento
                                             </option>
-                                            <option value="studio" {{ (old('type') == 'studio' ? 'selected' : '') }}>
+                                            <option value="Studio" {{ (old('type') == 'Studio' ? 'selected' : '') }}>
                                                 Studio
                                             </option>
-                                            <option value="kitnet" {{ (old('type') == 'kitnet' ? 'selected' : '') }}>
+                                            <option value="Kitnet" {{ (old('type') == 'Kitnet' ? 'selected' : '') }}>
                                                 Kitnet
                                             </option>
                                         </optgroup>
                                         <optgroup label="Comercial/Industrial">
                                             <option
-                                                value="commercial_room" {{ (old('type') == 'commercial_room' ? 'selected' : '') }}>
+                                                value="Sala Comercial" {{ (old('type') == 'Sala Comercial' ? 'selected' : '') }}>
                                                 Sala Comercial
                                             </option>
                                             <option
-                                                value="deposit_shed" {{ (old('type') == 'deposit_shed' ? 'selected' : '') }}>
+                                                value="Depósito/Galpão" {{ (old('type') == 'Depósito/Galpão' ? 'selected' : '') }}>
                                                 Depósito/Galpão
                                             </option>
                                             <option
-                                                value="commercial_point" {{ (old('type') == 'commercial_point' ? 'selected' : '') }}>
+                                                value="Ponto Comercial" {{ (old('type') == 'Ponto Comercial' ? 'selected' : '') }}>
                                                 Ponto Comercial
                                             </option>
                                         </optgroup>
                                         <optgroup label="Terreno">
-                                            <option value="terrain" {{ (old('type') == 'terrain' ? 'selected' : '') }}>
+                                            <option value="Terreno" {{ (old('type') == 'Terreno' ? 'selected' : '') }}>
                                                 Terreno
                                             </option>
                                         </optgroup>
