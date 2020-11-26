@@ -36,7 +36,7 @@
 
                     <label class="label">
                         <span class="legend">Responsável Legal:</span>
-                        <select name="user" class="select2">
+                        <select id="userSelect" name="user" class="select2" onchange="userSelected()">
                             <option value="">Selecione um responsável legal
                             </option>
                             @foreach($users as $user)
@@ -56,7 +56,8 @@
 
                         <p style="margin-top: 4px;">
 
-                            <a href="{{ route('admin.users.edit', ['id' => 1]) }}" class="text-orange icon-link" style="font-size: .8em;" target="_blank">Acessar
+                            <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="text-orange icon-link"
+                               style="font-size: .8em;" target="_blank">Acessar
                                 Cadastro</a>
                         </p>
 
@@ -153,3 +154,4 @@
         </div>
     </section>
 @endsection
+

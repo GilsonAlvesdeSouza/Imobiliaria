@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\PropertyRequest;
 use LaraDev\Model\Admin\Property;
+use LaraDev\Model\Admin\PropertyImage;
 use LaraDev\User;
 
 class PropertyController extends Controller
@@ -46,6 +47,17 @@ class PropertyController extends Controller
     {
         try {
             $createProperty = Property::create($request->all());
+
+            if($request->allFiles()){
+                foreach ($request->allFiles()['files'] as $image){
+                    $propertyImage = new PropertyImage();
+                    $propertyImage->property = $createProperty->id;
+                    $propertyImage->path = $image->store('properties/'.$createProperty->id);
+                    $propertyImage->save();
+                    unset($propertyImage);
+                }
+            }
+
             toast('Dados salvos com sucesso!', 'success');
             return redirect()->route('admin.properties.edit', [
                 'property' => $createProperty->id
@@ -116,6 +128,16 @@ class PropertyController extends Controller
 
         try {
         $property->save();
+        if($request->allFiles()){
+            foreach ($request->allFiles()['files'] as $image){
+                $propertyImage = new PropertyImage();
+                $propertyImage->property = $property->id;
+                $propertyImage->path = $image->store('properties/'.$property->id);
+                $propertyImage->save();
+                unset($propertyImage);
+            }
+        }
+
             toast('Dados alterados com sucesso!', 'success');
             return redirect()->route('admin.properties.edit', [
                 'property' => $property->id
@@ -125,6 +147,7 @@ class PropertyController extends Controller
             return redirect()->route('admin.properties.edit', [
                 'property' => $property->id
             ]);
+
         }
     }
 
