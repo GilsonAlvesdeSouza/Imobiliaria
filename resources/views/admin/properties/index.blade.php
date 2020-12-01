@@ -32,7 +32,7 @@
                                 <div class="realty_list_item mb-2">
                                     <div class="realty_list_item_actions_stats">
                                         <img
-                                            src="{{ url(asset('backend/assets/images/realty.jpeg')) }}"
+                                            src="{{ $property->getCover() }}"
                                             alt="">
                                         <ul>
                                             <li>Venda: R$ {{ $property->sale_price }}</li>

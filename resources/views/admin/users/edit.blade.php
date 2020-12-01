@@ -492,7 +492,7 @@
                                                     <div class="realty_list_item mb-1">
                                                         <div class="realty_list_item_actions_stats">
                                                             <img
-                                                                src="{{ url(asset('backend/assets/images/realty.jpeg')) }}"
+                                                                src="{{ $property->getCover() }}"
                                                                 alt="">
                                                             <ul>
                                                                 <li>Venda: R$ {{ $property->sale_price }}</li>
@@ -558,7 +558,8 @@
                                                             <div>
                                                                 <a href="" class="btn btn-blue icon-eye">Visualizar
                                                                     Imóvel</a>
-                                                                <a href="{{ route('admin.properties.edit', ['id' => $property->id]) }}" class="btn btn-green icon-pencil-square-o">Editar
+                                                                <a href="{{ route('admin.properties.edit', ['id' => $property->id]) }}"
+                                                                   class="btn btn-green icon-pencil-square-o">Editar
                                                                     Imóvel</a>
                                                             </div>
                                                         </div>

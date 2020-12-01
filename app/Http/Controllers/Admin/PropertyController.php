@@ -3,10 +3,12 @@
 namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\PropertyRequest;
 use LaraDev\Model\Admin\Property;
 use LaraDev\Model\Admin\PropertyImage;
+use LaraDev\Suporte\Cropper;
 use LaraDev\User;
 
 class PropertyController extends Controller
@@ -48,11 +50,11 @@ class PropertyController extends Controller
         try {
             $createProperty = Property::create($request->all());
 
-            if($request->allFiles()){
-                foreach ($request->allFiles()['files'] as $image){
+            if ($request->allFiles()) {
+                foreach ($request->allFiles()['files'] as $image) {
                     $propertyImage = new PropertyImage();
                     $propertyImage->property = $createProperty->id;
-                    $propertyImage->path = $image->store('properties/'.$createProperty->id);
+                    $propertyImage->path = $image->store('properties/' . $createProperty->id);
                     $propertyImage->save();
                     unset($propertyImage);
                 }
@@ -127,16 +129,16 @@ class PropertyController extends Controller
         $property->setViewOfTheSeaAttribute($request->view_of_theSea);
 
         try {
-        $property->save();
-        if($request->allFiles()){
-            foreach ($request->allFiles()['files'] as $image){
-                $propertyImage = new PropertyImage();
-                $propertyImage->property = $property->id;
-                $propertyImage->path = $image->store('properties/'.$property->id);
-                $propertyImage->save();
-                unset($propertyImage);
+            $property->save();
+            if ($request->allFiles()) {
+                foreach ($request->allFiles()['files'] as $image) {
+                    $propertyImage = new PropertyImage();
+                    $propertyImage->property = $property->id;
+                    $propertyImage->path = $image->store('properties/' . $property->id);
+                    $propertyImage->save();
+                    unset($propertyImage);
+                }
             }
-        }
 
             toast('Dados alterados com sucesso!', 'success');
             return redirect()->route('admin.properties.edit', [
@@ -163,12 +165,38 @@ class PropertyController extends Controller
     }
 
 
-    public function imageSetCover()
+    public function imageSetCover(Request $request)
     {
-        return response()->json('você chegou até aqui');
+        $imageSetCover = PropertyImage::where('id', $request->image)->first();
+        $allImage = PropertyImage::where('property', $imageSetCover->property)->get();
+
+        foreach ($allImage as $image) {
+            $image->cover = null;
+            $image->save();
+        }
+
+        $imageSetCover->cover = true;
+        $imageSetCover->save();
+
+        $json = [
+            'success' => true,
+        ];
+        return response()->json($json);
     }
-    public function imageRemove()
+
+    public function imageRemove(Request $request)
     {
-        return response()->json('Você está no caminho para remover imagens');
+        $imageDelete = PropertyImage::where('id', $request->image)->first();
+
+        Storage::delete($imageDelete->path);
+        Cropper::flush($imageDelete->path);
+
+        $imageDelete->delete();
+
+        $json = [
+            'success' => true,
+        ];
+
+        return response()->json($json);
     }
 }

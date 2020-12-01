@@ -3,6 +3,9 @@
 namespace LaraDev\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use LaraDev\Suporte\Cropper;
 use LaraDev\Support\Utils;
 use LaraDev\User;
 
@@ -58,7 +61,27 @@ class Property extends Model
         return $this->hasMany(PropertyImage::class, 'property', 'id')->orderBy('cover', 'ASC');
     }
 
-    public function user(){
+    public function getCover()
+    {
+        $images = $this->images();
+        $cover = $images->where('cover', 1 )->first();
+
+        if (!$cover){
+            $images = $this-> images();
+            $cover = $images->first(['path']);
+        }
+
+        if(!$cover){
+            if(empty($cover['path']) || !File::exists('../public/storage/'.$cover['path'])) {
+                return url(asset('backend/assets/images/no-image.jpg'));
+            }
+        }
+
+        return Storage::url(Cropper::thumb($cover['path'], 1366,768));
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user', 'id');
     }
 
