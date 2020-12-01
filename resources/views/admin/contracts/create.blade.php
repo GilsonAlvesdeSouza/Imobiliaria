@@ -1,3 +1,7 @@
+@extends('admin.master.master')
+
+@section('content')
+
 <section class="dash_content_app">
 
     <header class="dash_content_app_header">
@@ -6,11 +10,11 @@
         <div class="dash_content_app_header_actions">
             <nav class="dash_content_app_breadcrumb">
                 <ul>
-                    <li><a href="">Dashboard</a></li>
+                    <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="">Contratos</a></li>
+                    <li><a href="{{ route('admin.contracts.index') }}">Contratos</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="" class="text-orange">Cadastrar Contrato</a></li>
+                    <li><a href="{{ route('admin.contracts.create') }}" class="text-orange">Cadastrar Contrato</a></li>
                 </ul>
             </nav>
 
@@ -18,7 +22,7 @@
         </div>
     </header>
 
-    <?php include('filter.php'); ?>
+    @include('admin.contracts.filter')
 
     <div class="dash_content_app_box">
 
@@ -222,3 +226,4 @@
         </div>
     </div>
 </section>
+@endsection

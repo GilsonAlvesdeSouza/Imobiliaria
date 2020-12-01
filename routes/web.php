@@ -12,6 +12,8 @@
 */
 
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
     /** Formulário de login */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
@@ -34,6 +36,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::post('properties/image-set-cover', 'PropertyController@imageSetCover')->name('properties.imagesSetCover');
         Route::delete('properties/image-remove', 'PropertyController@imageRemove')->name('properties.imagesRemove');
         Route::resource('properties', 'PropertyController');
+
+        /** Contracts */
+        Route::resource('contracts', 'ContractController');
     });
 
     /** logout */
