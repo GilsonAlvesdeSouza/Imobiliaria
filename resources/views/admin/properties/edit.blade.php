@@ -441,6 +441,22 @@
                             </label>
 
                             <div class="content_image"></div>
+
+                            <div class="property_image">
+                                @foreach($property->images()->get() as $image)
+                                    <div class="property_image_item">
+                                        <img src="{{ $image->url_cropped }}" alt="">
+                                        <div class="property_image_actions">
+                                            <a href="javascript:void(0)"
+                                               class="btn btn-small icon-check icon-notext image-set-cover"
+                                               data-action="{{ route('admin.properties.imagesSetCover') }}"></a>
+                                            <a href="javascript:void(0)"
+                                               class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                               data-action="{{ route('admin.properties.imagesRemove') }}"></a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 
@@ -456,6 +472,12 @@
 @section('js')
     <script>
         $(function () {
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $('input[name="files[]"]').change(function (files) {
 
                 $('.content_image').text('');
@@ -473,6 +495,29 @@
                     reader.readAsDataURL(value);
                 });
             });
+
+            $('.image-set-cover').click(function (event) {
+                event.preventDefault();
+                var button = $(this);
+                $.post(button.data('action'), {}, function (response) {
+                    alert(response);
+                }, 'json');
+            });
+
+            $('.image-remove').click(function (event){
+                event.preventDefault();
+                var button = $(this);
+
+                $.ajax({
+                    url:button.data('action'),
+                    type:'DELETE',
+                    dataType:'json',
+                    success: function (response){
+                        alert(response)
+                    }
+                })
+            });
+
         });
     </script>
 

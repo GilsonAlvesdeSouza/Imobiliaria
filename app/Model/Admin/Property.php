@@ -53,6 +53,11 @@ class Property extends Model
         'status'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(PropertyImage::class, 'property', 'id')->orderBy('cover', 'ASC');
+    }
+
     public function user(){
         return $this->belongsTo(User::class, 'user', 'id');
     }

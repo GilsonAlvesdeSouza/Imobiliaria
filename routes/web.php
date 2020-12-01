@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('companies', 'CompanyController');
 
         /** Property */
+        Route::post('properties/image-set-cover', 'PropertyController@imageSetCover')->name('properties.imagesSetCover');
+        Route::delete('properties/image-remove', 'PropertyController@imageRemove')->name('properties.imagesRemove');
         Route::resource('properties', 'PropertyController');
     });
 
