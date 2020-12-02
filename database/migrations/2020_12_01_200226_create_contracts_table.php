@@ -37,8 +37,6 @@ class CreateContractsTable extends Migration
             $table->foreign('acquirer')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('acquirer_company')->references('id')->on('companies')->onDelete('CASCADE');
             $table->foreign('property')->references('id')->on('properties')->onDelete('CASCADE');
-
-
         });
     }
 

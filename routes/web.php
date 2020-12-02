@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('properties', 'PropertyController');
 
         /** Contracts */
+        Route::post('contracts/get-data-owner', 'ContractController@getDataOwner')->name('contracts.getDataOwner');
         Route::resource('contracts', 'ContractController');
     });
 

@@ -4,13 +4,12 @@ namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\User;
 
 class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -24,13 +23,19 @@ class ContractController extends Controller
      */
     public function create()
     {
-        return view('admin.contracts.create');
+        $lessors = User::lessors();
+        $lessees = User::lessees();
+
+        return view('admin.contracts.create', [
+            'lessors' => $lessors,
+            'lessees' => $lessees
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +46,7 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,7 +57,7 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -63,8 +68,8 @@ class ContractController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,11 +80,56 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataOwner(Request $request)
+    {
+        $lessor = User::where('id', $request->user)->first([
+            'id',
+            'civil_status',
+            'spouse_name',
+            'spouse_document'
+        ]);
+
+
+        if (empty($lessor)) {
+            $spouse = null;
+        } else {
+            $civilStatusSpouseRequired = [
+                'married',
+                'separated',
+            ];
+
+            if (in_array($lessor->civil_status, $civilStatusSpouseRequired)) {
+                $spouse = [
+                    'spouse_name' => $lessor->spouse_name,
+                    'spouse_document' => $lessor->spouse_document
+                ];
+            } else {
+                $spouse = null;
+            }
+        }
+
+        $companies = '';
+        if (!empty($lessor)) {
+            $companies = $lessor->Companies()->get([
+                'id',
+                'alias_name',
+                'document_company'
+            ]);
+        }
+
+        $json = [
+            'spouse' => $spouse,
+            'companies' => $companies,
+        ];
+
+        return response()->json($json);
     }
 }
