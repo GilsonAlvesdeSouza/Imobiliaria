@@ -132,4 +132,49 @@ class ContractController extends Controller
 
         return response()->json($json);
     }
+
+    public function getDataAcquirer(Request $request)
+    {
+        $lessee = User::where('id', $request->user)->first([
+            'id',
+            'civil_status',
+            'spouse_name',
+            'spouse_document'
+        ]);
+
+
+        if (empty($lessee)) {
+            $spouse = null;
+        } else {
+            $civilStatusSpouseRequired = [
+                'married',
+                'separated',
+            ];
+
+            if (in_array($lessee->civil_status, $civilStatusSpouseRequired)) {
+                $spouse = [
+                    'spouse_name' => $lessee->spouse_name,
+                    'spouse_document' => $lessee->spouse_document
+                ];
+            } else {
+                $spouse = null;
+            }
+        }
+
+        $companies = '';
+        if (!empty($lessee)) {
+            $companies = $lessee->Companies()->get([
+                'id',
+                'alias_name',
+                'document_company'
+            ]);
+        }
+
+        $json = [
+            'spouse' => $spouse,
+            'companies' => $companies,
+        ];
+
+        return response()->json($json);
+    }
 }

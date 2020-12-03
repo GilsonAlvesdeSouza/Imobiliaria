@@ -100,7 +100,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Adquirente:</span>
-                                            <select name="acquirer" class="select2">
+                                            <select name="acquirer" class="select2" data-action="{{ route('admin.contracts.getDataAcquirer') }}">
                                                 <option value="" selected>Informe um Cliente</option>
                                                 @foreach($lessees as $lessee)
                                                     <option value="{{ $lessee->id }}">{{ $lessee->name }} -
@@ -289,6 +289,53 @@
                         });
                     } else {
                         selectOwnerCompany.append($('<option>', {
+                            value: 0,
+                            text: 'Não informado'
+                        }));
+                    }
+                }, 'json');
+            });
+
+            $('select[name="acquirer"]').change(function () {
+                var acquirer = $(this);
+
+                $.post(acquirer.data('action'), {user: acquirer.val()}, function (response) {
+
+                    //spouse
+                    var selectAquirerSpouse = $('select[name="acquirer_spouse"]');
+                    selectAquirerSpouse.html('');
+                    if (response.spouse) {
+                        selectAquirerSpouse.append($('<option>', {
+                            value: 0,
+                            text: 'Não Informar'
+                        }));
+                        selectAquirerSpouse.append($('<option>', {
+                            value: 1,
+                            text: response.spouse.spouse_name + ' - (' + response.spouse.spouse_document + ')'
+                        }));
+                    } else {
+                        selectAquirerSpouse.append($('<option>', {
+                            value: 0,
+                            text: 'Não Informado'
+                        }));
+                    }
+
+                    //companies
+                    var selectAquirerCompany = $('select[name="acquirer_company"]')
+                    selectAquirerCompany.html('');
+                    if (response.companies.length) {
+                        selectAquirerCompany.append($('<option>', {
+                            value: 0,
+                            text: 'Não Informar'
+                        }));
+                        $.each(response.companies, function (key, value) {
+                            selectAquirerCompany.append($('<option>', {
+                                value: value.id,
+                                text: value.alias_name + ' - (' + value.document_company + ')'
+                            }));
+                        });
+                    } else {
+                        selectAquirerCompany.append($('<option>', {
                             value: 0,
                             text: 'Não informado'
                         }));
