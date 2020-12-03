@@ -100,7 +100,8 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Adquirente:</span>
-                                            <select name="acquirer" class="select2" data-action="{{ route('admin.contracts.getDataAcquirer') }}">
+                                            <select name="acquirer" class="select2"
+                                                    data-action="{{ route('admin.contracts.getDataAcquirer') }}">
                                                 <option value="" selected>Informe um Cliente</option>
                                                 @foreach($lessees as $lessee)
                                                     <option value="{{ $lessee->id }}">{{ $lessee->name }} -
@@ -136,7 +137,7 @@
                                 <div class="app_collapse_content">
                                     <label class="label">
                                         <span class="legend">Imóvel:</span>
-                                        <select name="property" class="select2">
+                                        <select name="property" class="select2" data-action="{{ route('admin.contracts.getDataProprety') }}">
                                             <option value="">Não informado</option>
                                         </select>
                                     </label>
@@ -274,7 +275,7 @@
                     }
 
                     //companies
-                    var selectOwnerCompany = $('select[name="owner_company"]')
+                    var selectOwnerCompany = $('select[name="owner_company"]');
                     selectOwnerCompany.html('');
                     if (response.companies.length) {
                         selectOwnerCompany.append($('<option>', {
@@ -293,6 +294,28 @@
                             text: 'Não informado'
                         }));
                     }
+
+                    //properties
+                    var selecOwnertProperty = $('select[name="property"]');
+                    selecOwnertProperty.html('');
+                    if (response.properties.length && response.properties != '' ) {
+                        selecOwnertProperty.append($('<option>', {
+                            value: 0,
+                            text: 'Não informar'
+                        }));
+                        $.each(response.properties, function (key, value) {
+                            selecOwnertProperty.append($('<option>', {
+                                value: value.id,
+                                text: value.description
+                            }));
+                        });
+                    } else {
+                        selecOwnertProperty.append($('<option>', {
+                            value: 0,
+                            text: 'Não Informado'
+                        }));
+                    }
+
                 }, 'json');
             });
 
@@ -339,6 +362,23 @@
                             value: 0,
                             text: 'Não informado'
                         }));
+                    }
+                }, 'json');
+            });
+
+            $('select[name="property"]').change(function (){
+                var property = $(this);
+                $.post(property.data('action'),{property: property.val()}, function(response){
+                    if (response.property) {
+                        $('input[name="sale_price"]').val('R$ ' + response.property.sale_price);
+                        $('input[name="rent_price"]').val('R$ ' + response.property.rent_price);
+                        $('input[name="tribute"]').val('R$ ' + response.property.tribute);
+                        $('input[name="condominium"]').val('R$ ' + response.property.condominium);
+                    }else{
+                        $('input[name="sale_price"]').val('R$ 0,00');
+                        $('input[name="rent_price"]').val('R$ 0,00');
+                        $('input[name="tribute"]').val('R$ 0,00');
+                        $('input[name="condominium"]').val('R$ 0,00');
                     }
                 }, 'json');
             });

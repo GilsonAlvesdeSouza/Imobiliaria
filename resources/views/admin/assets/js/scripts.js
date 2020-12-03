@@ -201,6 +201,23 @@ $(function () {
         normalizeSpouse();
     });
 
+    //enable input to price
+    $('input[type="checkbox"][name="sale"]').change(function () {
+        if ($(this).get(0).checked) {
+            $('input[name="sale_price"]').attr('disabled', false);
+        } else {
+            $('input[name="sale_price"]').attr('disabled', true);
+        }
+    });
+
+    $('input[type="checkbox"][name="rent"]').change(function () {
+        if ($(this).get(0).checked) {
+            $('input[name="rent_price"]').attr('disabled', false);
+        } else {
+            $('input[name="rent_price"]').attr('disabled', true);
+        }
+    });
+
 });
 
 // TINYMCE INIT

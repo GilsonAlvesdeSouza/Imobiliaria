@@ -4,6 +4,7 @@ namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\Model\Admin\Property;
 use LaraDev\User;
 
 class ContractController extends Controller
@@ -125,9 +126,22 @@ class ContractController extends Controller
             ]);
         }
 
+        $properties [] = '';
+        if (!empty($lessor)) {
+            $getProperties = $lessor->Properties()->get();
+            foreach ($getProperties as $property) {
+                $properties[] = [
+                    'id' => $property->id,
+                    'description' => $property->street . ' N°:' . $property->number . ' ' . $property->complement . ' ' .
+                        $property->neighborhood . ' ' . $property->city . '/' . $property->state . ' CEP:' . $property->zipcode
+                ];
+            }
+        }
+
         $json = [
             'spouse' => $spouse,
             'companies' => $companies,
+            'properties' => $properties
         ];
 
         return response()->json($json);
@@ -173,6 +187,24 @@ class ContractController extends Controller
         $json = [
             'spouse' => $spouse,
             'companies' => $companies,
+        ];
+
+        return response()->json($json);
+    }
+
+    public function getDataProprety(Request $request)
+    {
+
+        $property = Property::where('id', $request->property)->first([
+            'id',
+            'sale_price',
+            'rent_price',
+            'tribute',
+            'condominium'
+        ]);
+
+        $json = [
+            'property' => ($property ? $property : ''),
         ];
 
         return response()->json($json);
