@@ -4,8 +4,11 @@ namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\Http\Requests\Admin\ContractsRequest;
+use LaraDev\Model\Admin\Contract;
 use LaraDev\Model\Admin\Property;
 use LaraDev\User;
+use function GuzzleHttp\Promise\all;
 
 class ContractController extends Controller
 {
@@ -39,9 +42,11 @@ class ContractController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContractsRequest $request)
     {
-        //
+        $contract = new Contract();
+        $contract->fill($request->all());
+        dd($contract->getAttributes());
     }
 
     /**
