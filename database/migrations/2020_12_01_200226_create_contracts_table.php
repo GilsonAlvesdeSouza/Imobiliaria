@@ -26,7 +26,7 @@ class CreateContractsTable extends Migration
             $table->unsignedInteger('property');
             $table->double('price');
             $table->double('tribute');
-            $table->double('codominum');
+            $table->double('condominium');
             $table->unsignedInteger('due_date');
             $table->unsignedInteger('deadline');
             $table->date('start_at');

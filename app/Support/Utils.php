@@ -58,6 +58,7 @@ class Utils
         if (empty($param)) {
             return null;
         }
+
         return doubleval(str_replace(',', '.', str_replace('.', '', $param)));
     }
 

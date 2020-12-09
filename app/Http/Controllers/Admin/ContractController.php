@@ -8,7 +8,7 @@ use LaraDev\Http\Requests\Admin\ContractsRequest;
 use LaraDev\Model\Admin\Contract;
 use LaraDev\Model\Admin\Property;
 use LaraDev\User;
-use function GuzzleHttp\Promise\all;
+
 
 class ContractController extends Controller
 {
@@ -44,9 +44,17 @@ class ContractController extends Controller
      */
     public function store(ContractsRequest $request)
     {
-        $contract = new Contract();
-        $contract->fill($request->all());
-        dd($contract->getAttributes());
+
+        try {
+            $contractCreate = Contract::Create($request->all());
+            toast('Dados salvos com sucesso!', 'success');
+        } catch (\Exception $exception) {
+            toast("Ocorreu um erro ao tentar salvar os dados!", 'error');
+        }
+
+        return redirect()->route('admin.contracts.edit', [
+            'contract' => $contractCreate->id
+        ]);
     }
 
     /**
@@ -68,7 +76,15 @@ class ContractController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lessors = User::lessors();
+        $lessees = User::lessees();
+        $contract = Contract::where('id', $id)->first();
+
+        return view('admin.contracts.edit',[
+            'contract' => $contract,
+            'lessors' => $lessors,
+            'lessees' => $lessees
+        ]);
     }
 
     /**
@@ -78,9 +94,21 @@ class ContractController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContractsRequest $request, $id)
     {
-        //
+        $contract = Contract::where('id', $id)->first();
+        $contract->fill($request->all());
+
+        try {
+            $contract->save();
+            toast('Dados alterados com sucesso!', 'success');
+        } catch (\Exception $exception) {
+            toast("Ocorreu um erro ao tentar alterar os dados!", 'error');
+        }
+
+        return redirect()->route('admin.contracts.edit',[
+           'contract' => $contract->id
+        ]);
     }
 
     /**

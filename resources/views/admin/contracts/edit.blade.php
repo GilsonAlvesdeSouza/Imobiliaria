@@ -1,0 +1,569 @@
+@extends('admin.master.master')
+
+@section('content')
+
+    <section class="dash_content_app">
+
+        <header class="dash_content_app_header">
+            <h2 class="icon-search">Editar Contrato</h2>
+
+            <div class="dash_content_app_header_actions">
+                <nav class="dash_content_app_breadcrumb">
+                    <ul>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="{{ route('admin.contracts.index') }}">Contratos</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                    </ul>
+                </nav>
+
+                <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>
+            </div>
+        </header>
+
+        @include('admin.contracts.filter')
+
+        <div class="dash_content_app_box">
+
+            @if($errors->all())
+                @foreach($errors->all() as $error)
+                    @message(['color' => 'orange'])
+                    <p class="icon-asterisk">{{ $error }}</p>
+                    @endmessage
+                @endforeach
+            @endif
+
+            <div class="nav">
+                <ul class="nav_tabs">
+                    <li class="nav_tabs_item">
+                        <a href="#parts" class="nav_tabs_item_link active">Das Partes</a>
+                    </li>
+                    <li class="nav_tabs_item">
+                        <a href="#terms" class="nav_tabs_item_link">Termos</a>
+                    </li>
+                </ul>
+
+                <div class="nav_tabs_content">
+                    <div id="parts">
+                        <form action="{{ route('admin.contracts.update', ['id' => $contract->id]) }}" method="post" class="app_form">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="owner_spouse_persist"
+                                   value="{{ old('owner_spouse') ?? $contract->owner_spouse }}">
+                            <input type="hidden" name="owner_company_persist"
+                                   value="{{ old('owner_company') ?? $contract->owner_company }}">
+                            <input type="hidden" name="acquirer_spouse_persist"
+                                   value="{{ old('acquirer_spouse') ?? $contract->acquirer_spouse }}">
+                            <input type="hidden" name="acquirer_company_persist"
+                                   value="{{ old('acquirer_company') ?? $contract->acquirer_company }}">
+                            <input type="hidden" name="property_persist"
+                                   value="{{ old('property') ?? $contract->property }}">
+                            <div class="label_gc">
+                                <span class="legend">Finalidade:</span>
+                                <label class="label">
+                                    <input type="checkbox"
+                                           name="sale"{{ (old('checkSale') == 'on'  ? 'checked' : (old('checkSale') == 'off' ? '' : ($contract->sale == true ? 'checked' : '')))  }}>
+                                    <span>Venda</span>
+                                    <input type="hidden" id="checkSale" name="checkSale" value="">
+                                </label>
+
+                                <label class="label">
+                                    <input type="checkbox"
+                                           name="rent" {{ (old('checkRent') == 'on' ? 'checked' : (old('checkRent') == 'off' ? '' : ($contract->rent == true ? 'checked' : ''))) }}>
+                                    <span>Locação</span>
+                                    <input type="hidden" id="checkRent" name="checkRent" value="">
+                                </label>
+                            </div>
+
+                            <div class="app_collapse">
+                                <div class="app_collapse_header mt-2 collapse">
+                                    <h3>Proprietário</h3>
+                                    <span class="icon-minus-circle icon-notext"></span>
+                                </div>
+
+                                <div class="app_collapse_content">
+                                    <div class="label_g2">
+                                        <label class="label">
+                                            <span class="legend">Proprietário:</span>
+                                            <select class="select2" name="owner"
+                                                    data-action="{{ route('admin.contracts.getDataOwner') }}">
+                                                <option value="0">Informe um Cliente</option>
+                                                @foreach($lessors as $lessor)
+                                                    <option
+                                                        value="{{ $lessor->id }}" {{ (old('owner') == $lessor->id ? 'selected' : ($contract->owner == $lessor->id ? 'selected' : '')) }}>
+                                                        {{ $lessor->name }} - ({{ $lessor->document }})
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+
+                                        <label class="label">
+                                            <span class="legend">Conjuge Proprietário:</span>
+                                            <select class="select2" name="owner_spouse">
+                                                <option value="" selected>Não informado</option>
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                    <label class="label">
+                                        <span class="legend">Empresa:</span>
+                                        <select class="select2" name="owner_company">
+                                            <option value="" selected>Não informado</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="app_collapse">
+                                <div class="app_collapse_header mt-2 collapse">
+                                    <h3>Adquirente</h3>
+                                    <span class="icon-minus-circle icon-notext"></span>
+                                </div>
+
+                                <div class="app_collapse_content">
+                                    <div class="label_g2">
+                                        <label class="label">
+                                            <span class="legend">Adquirente:</span>
+                                            <select name="acquirer" class="select2"
+                                                    data-action="{{ route('admin.contracts.getDataAcquirer') }}">
+                                                <option value="" selected>Informe um Cliente</option>
+                                                @foreach($lessees as $lessee)
+                                                    <option
+                                                        value="{{ $lessee->id }}" {{ (old('acquirer') == $lessee->id ? 'selected' : ($contract->acquirer == $lessee->id ? 'selected' : '')) }}>
+                                                        {{ $lessee->name }} - ({{ $lessee->document }})
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </label>
+
+                                        <label class="label">
+                                            <span class="legend">Conjuge Adquirente:</span>
+                                            <select class="select2" name="acquirer_spouse">
+                                                <option value="" selected>Não informado</option>
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                    <label class="label">
+                                        <span class="legend">Empresa:</span>
+                                        <select name="acquirer_company" class="select2">
+                                            <option value="" selected>Não informado</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="app_collapse">
+                                <div class="app_collapse_header mt-2 collapse">
+                                    <h3>Parâmetros do Contrato</h3>
+                                    <span class="icon-minus-circle icon-notext"></span>
+                                </div>
+
+                                <div class="app_collapse_content">
+                                    <label class="label">
+                                        <span class="legend">Imóvel:</span>
+                                        <select name="property" class="select2"
+                                                data-action="{{ route('admin.contracts.getDataProprety') }}">
+                                            <option value="">Não informado</option>
+                                        </select>
+                                    </label>
+
+                                    <div class="label_g2">
+                                        <label class="label">
+                                            <span class="legend">Valor de Venda:</span>
+                                            <input type="tel" name="sale_price" class="mask-money"
+                                                   placeholder="Valor de Venda"
+                                                   value="{{ old('sale_price') ? old('sale_price') : ($contract->sale == true ? $contract->price : 'R$ 0,00') }}"
+                                                {{ (old('checkSale') == 'on'  ? '' : (old('checkSale') == 'off' ? 'disabled' : ($contract->sale != true ? 'disabled' : ''))) }}/>
+                                        </label>
+
+                                        <label class="label">
+                                            <span class="legend">Valor de Locação:</span>
+                                            <input type="text" name="rent_price" class="mask-money"
+                                                   placeholder="Valor de Locação"
+                                                   value="{{ old('rent_price') ? old('rent_price') : ($contract->rent == true ? $contract->price : 'R$ 0,00') }}"
+                                                {{ (old('checkRent') == 'on'  ? '' : (old('checkRent') == 'off'  ? 'disabled' : ($contract->rent != true ? 'disabled' : ''))) }}/>
+                                        </label>
+                                    </div>
+
+                                    <div class="label_g2">
+                                        <label class="label">
+                                            <span class="legend">IPTU:</span>
+                                            <input type="text" name="tribute" class="mask-money" placeholder="IPTU"
+                                                   value="{{old('tribute') ?? $contract->tribute }}"/>
+                                        </label>
+
+                                        <label class="label">
+                                            <span class="legend">Condomínio:</span>
+                                            <input type="text" name="condominium" class="mask-money"
+                                                   placeholder="Valor do Condomínio"
+                                                   value="{{ old('condominium') ?? $contract->condominium }}"/>
+                                        </label>
+                                    </div>
+
+                                    <div class="label_g2">
+                                        <label class="label">
+                                            <span class="legend">Dia de Vencimento:</span>
+                                            <select name="due_date" class="select2">
+                                                <option
+                                                    value="1" {{ (old('due_date') == 1 ? 'selected' : ($contract->due_date == 1 ? 'selected' : '')) }}>
+                                                    1º
+                                                </option>
+                                                <option
+                                                    value="2" {{ (old('due_date') == 2 ? 'selected' : ($contract->due_date == 2 ? 'selected' : '')) }}>
+                                                    2/mês
+                                                </option>
+                                                <option
+                                                    value="3" {{ (old('due_date') == 3 ? 'selected' : ($contract->due_date == 3 ? 'selected' : '')) }}>
+                                                    3/mês
+                                                </option>
+                                                <option
+                                                    value="4" {{ (old('due_date') == 4 ? 'selected' : ($contract->due_date == 4 ? 'selected' : '')) }}>
+                                                    4/mês
+                                                </option>
+                                                <option
+                                                    value="5" {{ (old('due_date') == 5 ? 'selected' : ($contract->due_date == 5 ? 'selected' : '')) }}>
+                                                    5/mês
+                                                </option>
+                                                <option
+                                                    value="6" {{ (old('due_date') == 6 ? 'selected' : ($contract->due_date == 6 ? 'selected' : '')) }}>
+                                                    6/mês
+                                                </option>
+                                                <option
+                                                    value="7" {{ (old('due_date') == 7 ? 'selected' : ($contract->due_date == 7 ? 'selected' : '')) }}>
+                                                    7/mês
+                                                </option>
+                                                <option
+                                                    value="8" {{ (old('due_date') == 8 ? 'selected' : ($contract->due_date == 8 ? 'selected' : '')) }}>
+                                                    8/mês
+                                                </option>
+                                                <option
+                                                    value="9" {{ (old('due_date') == 9 ? 'selected' : ($contract->due_date == 9 ? 'selected' : '')) }}>
+                                                    9/mês
+                                                </option>
+                                                <option
+                                                    value="10" {{ (old('due_date') == 10 ? 'selected' : ($contract->due_date == 10 ? 'selected' : '')) }}>
+                                                    10/mês
+                                                </option>
+                                                <option
+                                                    value="11" {{ (old('due_date') == 11 ? 'selected' : ($contract->due_date == 11 ? 'selected' : '')) }}>
+                                                    11/mês
+                                                </option>
+                                                <option
+                                                    value="12" {{ (old('due_date') == 12 ? 'selected' : ($contract->due_date == 12 ? 'selected' : '')) }}>
+                                                    12/mês
+                                                </option>
+                                                <option
+                                                    value="13" {{ (old('due_date') == 13 ? 'selected' : ($contract->due_date == 13 ? 'selected' : '')) }}>
+                                                    13/mês
+                                                </option>
+                                                <option
+                                                    value="14" {{ (old('due_date') == 14 ? 'selected' : ($contract->due_date == 14 ? 'selected' : '')) }}>
+                                                    14/mês
+                                                </option>
+                                                <option
+                                                    value="15" {{ (old('due_date') == 15 ? 'selected' : ($contract->due_date == 15 ? 'selected' : '')) }}>
+                                                    15/mês
+                                                </option>
+                                                <option
+                                                    value="16" {{ (old('due_date') == 16 ? 'selected' : ($contract->due_date == 16 ? 'selected' : '')) }}>
+                                                    16/mês
+                                                </option>
+                                                <option
+                                                    value="17" {{ (old('due_date') == 17 ? 'selected' : ($contract->due_date == 17 ? 'selected' : '')) }}>
+                                                    17/mês
+                                                </option>
+                                                <option
+                                                    value="18" {{ (old('due_date') == 18 ? 'selected' : ($contract->due_date == 18 ? 'selected' : '')) }}>
+                                                    18/mês
+                                                </option>
+                                                <option
+                                                    value="19" {{ (old('due_date') == 19 ? 'selected' : ($contract->due_date == 19 ? 'selected' : '')) }}>
+                                                    19/mês
+                                                </option>
+                                                <option
+                                                    value="20" {{ (old('due_date') == 20 ? 'selected' : ($contract->due_date == 20 ? 'selected' : '')) }}>
+                                                    20/mês
+                                                </option>
+                                                <option
+                                                    value="21" {{ (old('due_date') == 21 ? 'selected' : ($contract->due_date == 21 ? 'selected' : '')) }}>
+                                                    21/mês
+                                                </option>
+                                                <option
+                                                    value="22" {{ (old('due_date') == 22 ? 'selected' : ($contract->due_date == 22 ? 'selected' : '')) }}>
+                                                    22/mês
+                                                </option>
+                                                <option
+                                                    value="23" {{ (old('due_date') == 23 ? 'selected' : ($contract->due_date == 23 ? 'selected' : '')) }}>
+                                                    23/mês
+                                                </option>
+                                                <option
+                                                    value="24" {{ (old('due_date') == 24 ? 'selected' : ($contract->due_date == 24 ? 'selected' : '')) }}>
+                                                    24/mês
+                                                </option>
+                                                <option
+                                                    value="25" {{ (old('due_date') == 25 ? 'selected' : ($contract->due_date == 25 ? 'selected' : '')) }}>
+                                                    25/mês
+                                                </option>
+                                                <option
+                                                    value="26" {{ (old('due_date') == 26 ? 'selected' : ($contract->due_date == 26 ? 'selected' : '')) }}>
+                                                    26/mês
+                                                </option>
+                                                <option
+                                                    value="27" {{ (old('due_date') == 27 ? 'selected' : ($contract->due_date == 27 ? 'selected' : '')) }}>
+                                                    27/mês
+                                                </option>
+                                                <option
+                                                    value="28" {{ (old('due_date') == 28 ? 'selected' : ($contract->due_date == 28 ? 'selected' : '')) }}>
+                                                    28/mês
+                                                </option>
+                                            </select>
+                                        </label>
+
+                                        <label class="label">
+                                            <span class="legend">Prazo do Contrato (Em meses)</span>
+                                            <select name="deadline" class="select2">
+                                                <option value="12" {{ (old('deadline') == 12 ? 'selected' : ($contract->deadline == 12 ? 'selected' : '')) }}>12
+                                                    meses
+                                                </option>
+                                                <option value="24" {{ (old('deadline') == 24 ? 'selected' : ($contract->deadline == 24 ? 'selected' : '')) }}>24
+                                                    meses
+                                                </option>
+                                                <option value="36" {{ (old('deadline') == 36 ? 'selected' : ($contract->deadline == 36 ? 'selected' : '')) }}>36
+                                                    meses
+                                                </option>
+                                                <option value="48" {{ (old('deadline') == 48 ? 'selected' : ($contract->deadline == 48 ? 'selected' : '')) }}>48
+                                                    meses
+                                                </option>
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                    <label class="label">
+                                        <span class="legend">Data de Início:</span>
+                                        <input type="tel" name="start_at" class="mask-date" placeholder="Data de Início"
+                                               value="{{ old('start_at') ?? $contract->start_at }}"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="text-right mt-2" id="divSubmit">
+                                <button class="btn btn-large btn-green icon-check-square-o" id="btnSubmit">
+                                    Editar
+                                    Contrato
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="terms" class="d-none">
+                        <h3 class="mb-2">Termos</h3>
+
+                        <textarea name="terms" cols="30" rows="10" class="mce"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+@section('js')
+    <script>
+        //validação dos checkbox
+        var chkSale = $('input[name="sale"]');
+        $('#btnSubmit').on('click', function () {
+            $('input[name="checkSale"]').val('off');
+            if (chkSale.get(0).checked) {
+                $('input[name="checkSale"]').val('on');
+            }
+        });
+
+        var chkRent = $('input[name="rent"]');
+        $('#btnSubmit').on('click', function () {
+            $('input[name="checkRent"]').val('off');
+            if (chkRent.get(0).checked) {
+                $('input[name="checkRent"]').val('on');
+            }
+        });
+
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            function setFieldOwner(response) {
+                //spouse
+
+                var selectOwnerSpouse = $('select[name="owner_spouse"]');
+                selectOwnerSpouse.html('');
+                if (response.spouse) {
+                    selectOwnerSpouse.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informar'
+                    }));
+                    selectOwnerSpouse.append($('<option>', {
+                        value: 1,
+                        text: response.spouse.spouse_name + ' - (' + response.spouse.spouse_document + ')',
+                        selected: ($('input[name="owner_spouse_persist"]').val() != 0 ? 'selected' : false)
+                    }));
+                } else {
+                    selectOwnerSpouse.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informado'
+                    }));
+                }
+
+                //companies
+                var selectOwnerCompany = $('select[name="owner_company"]');
+                selectOwnerCompany.html('');
+                if (response.companies.length) {
+                    selectOwnerCompany.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informar'
+                    }));
+                    $.each(response.companies, function (key, value) {
+                        selectOwnerCompany.append($('<option>', {
+                            value: value.id,
+                            text: value.alias_name + ' - (' + value.document_company + ')',
+                            selected: ($('input[name="owner_company_persist"]').val() != 0 &&
+                            $('input[name="owner_company_persist"]').val() == value.id ? 'selected' : false)
+                        }));
+                    });
+                } else {
+                    selectOwnerCompany.append($('<option>', {
+                        value: 0,
+                        text: 'Não informado'
+                    }));
+                }
+
+                //properties
+                var selecOwnertProperty = $('select[name="property"]');
+                selecOwnertProperty.html('');
+                if (response.properties.length && response.properties != '') {
+                    selecOwnertProperty.append($('<option>', {
+                        value: 0,
+                        text: 'Não informar'
+                    }));
+                    $.each(response.properties, function (key, value) {
+                        selecOwnertProperty.append($('<option>', {
+                            value: value.id,
+                            text: value.description,
+                            selected: ($('input[name="property_persist"]').val() != 0 &&
+                            $('input[name="property_persist"]').val() == value.id ? 'selected' : false)
+                        }));
+                    });
+                } else {
+                    selecOwnertProperty.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informado'
+                    }));
+                }
+
+            }
+
+            $('select[name="owner"]').change(function () {
+                var owner = $(this);
+                $.post(owner.data('action'), {user: owner.val()}, function (response) {
+                    setFieldOwner(response);
+                }, 'json');
+            });
+
+            if ($('select[name="owner"]').val() != 0) {
+                var owner = $('select[name="owner"]');
+                $.post(owner.data('action'), {user: owner.val()}, function (response) {
+                    setFieldOwner(response);
+                }, 'json');
+            }
+
+            function setFieldAcquirer(response) {
+                //spouse
+                var selectAquirerSpouse = $('select[name="acquirer_spouse"]');
+                selectAquirerSpouse.html('');
+                if (response.spouse) {
+                    selectAquirerSpouse.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informar'
+                    }));
+                    selectAquirerSpouse.append($('<option>', {
+                        value: 1,
+                        text: response.spouse.spouse_name + ' - (' + response.spouse.spouse_document + ')',
+                        selected: ($('input[name="acquirer_spouse_persist"]').val() != 0 ? 'selected' : false)
+                    }));
+                } else {
+                    selectAquirerSpouse.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informado'
+                    }));
+                }
+
+                //companies
+                var selectAquirerCompany = $('select[name="acquirer_company"]')
+                selectAquirerCompany.html('');
+                if (response.companies.length) {
+                    selectAquirerCompany.append($('<option>', {
+                        value: 0,
+                        text: 'Não Informar'
+                    }));
+                    $.each(response.companies, function (key, value) {
+                        selectAquirerCompany.append($('<option>', {
+                            value: value.id,
+                            text: value.alias_name + ' - (' + value.document_company + ')',
+                            selected: ($('input[name="acquirer_company_persist"]').val() != 0 &&
+                            $('input[name="acquirer_company_persist"]').val() == value.id ? 'selected' : false)
+                        }));
+                    });
+                } else {
+                    selectAquirerCompany.append($('<option>', {
+                        value: 0,
+                        text: 'Não informado'
+                    }));
+                }
+            }
+
+            $('select[name="acquirer"]').change(function () {
+                var acquirer = $(this);
+                $.post(acquirer.data('action'), {user: acquirer.val()}, function (response) {
+                    setFieldAcquirer(response);
+                }, 'json');
+            });
+
+            if ($('select[name="acquirer"]').val() != 0) {
+                var acquirer = $('select[name="acquirer"]');
+                $.post(acquirer.data('action'), {user: acquirer.val()}, function (response) {
+                    setFieldAcquirer(response);
+                }, 'json');
+            }
+
+            function setFieldProperty(response) {
+                if (response.property != null) {
+                    $('input[name="sale_price"]').val('R$ ' + response.property.sale_price);
+                    $('input[name="rent_price"]').val('R$ ' + response.property.rent_price);
+                    $('input[name="tribute"]').val('R$ ' + response.property.tribute);
+                    $('input[name="condominium"]').val('R$ ' + response.property.condominium);
+                } else {
+                    $('input[name="sale_price"]').val('R$ 0,00');
+                    $('input[name="rent_price"]').val('R$ 0,00');
+                    $('input[name="tribute"]').val('R$ 0,00');
+                    $('input[name="condominium"]').val('R$ 0,00');
+                }
+            }
+
+            $('select[name="property"]').change(function () {
+                var property = $(this);
+                $.post(property.data('action'), {property: property.val()}, function (response) {
+                    setFieldProperty(response);
+                }, 'json');
+            });
+
+            // if ($('input[name="property_persist"]').val() > 0) {
+            //     var property = $('select[name="property"]');
+            //     $.post(property.data('action'), {property: $('input[name="property_persist"]').val()}, function (response) {
+            //         setFieldProperty(response);
+            //     }, 'json');
+            // }
+        });
+    </script>
+
+@endsection
