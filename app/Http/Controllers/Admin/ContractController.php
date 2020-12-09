@@ -17,7 +17,15 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return view('admin.contracts.index');
+        $contracts = Contract::with('ownerObject',
+            'acquirerObject',
+            'ownerCompanyObject',
+            'acquirerCompanyObject'
+        )->orderBy('id', 'DESC')->get();
+
+        return view('admin.contracts.index', [
+            'contracts' => $contracts
+        ]);
     }
 
     /**
@@ -80,7 +88,7 @@ class ContractController extends Controller
         $lessees = User::lessees();
         $contract = Contract::where('id', $id)->first();
 
-        return view('admin.contracts.edit',[
+        return view('admin.contracts.edit', [
             'contract' => $contract,
             'lessors' => $lessors,
             'lessees' => $lessees
@@ -106,8 +114,8 @@ class ContractController extends Controller
             toast("Ocorreu um erro ao tentar alterar os dados!", 'error');
         }
 
-        return redirect()->route('admin.contracts.edit',[
-           'contract' => $contract->id
+        return redirect()->route('admin.contracts.edit', [
+            'contract' => $contract->id
         ]);
     }
 
