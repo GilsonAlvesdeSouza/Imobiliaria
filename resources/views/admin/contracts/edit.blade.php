@@ -45,7 +45,8 @@
 
                 <div class="nav_tabs_content">
                     <div id="parts">
-                        <form action="{{ route('admin.contracts.update', ['id' => $contract->id]) }}" method="post" class="app_form">
+                        <form action="{{ route('admin.contracts.update', ['id' => $contract->id]) }}" method="post"
+                              class="app_form">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="owner_spouse_persist"
@@ -61,17 +62,17 @@
                             <div class="label_gc">
                                 <span class="legend">Finalidade:</span>
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="sale"{{ (old('checkSale') == 'on'  ? 'checked' : (old('checkSale') == 'off' ? '' : ($contract->sale == true ? 'checked' : '')))  }}>
+                                    <input type="radio"
+                                           name="purpose"
+                                           {{ (old('purpose') == 'sale'  ? 'checked' :  ($contract->purpose == 'sale' ? 'checked' : ''))}} value="sale">
                                     <span>Venda</span>
-                                    <input type="hidden" id="checkSale" name="checkSale" value="">
                                 </label>
 
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="rent" {{ (old('checkRent') == 'on' ? 'checked' : (old('checkRent') == 'off' ? '' : ($contract->rent == true ? 'checked' : ''))) }}>
+                                    <input type="radio"
+                                           name="purpose"
+                                           {{ (old('purpose') == 'rent' ? 'checked' : ($contract->purpose == 'rent' ? 'checked' : '')) }} value="rent">
                                     <span>Locação</span>
-                                    <input type="hidden" id="checkRent" name="checkRent" value="">
                                 </label>
                             </div>
 
@@ -173,16 +174,16 @@
                                             <span class="legend">Valor de Venda:</span>
                                             <input type="tel" name="sale_price" class="mask-money"
                                                    placeholder="Valor de Venda"
-                                                   value="{{ old('sale_price') ? old('sale_price') : ($contract->sale == true ? $contract->price : 'R$ 0,00') }}"
-                                                {{ (old('checkSale') == 'on'  ? '' : (old('checkSale') == 'off' ? 'disabled' : ($contract->sale != true ? 'disabled' : ''))) }}/>
+                                                   value="{{ old('sale_price') ? old('sale_price') : ($contract->purpose == "sale" ? $contract->price : 'R$ 0,00') }}"
+                                                {{ ($contract->purpose != "sale" ? 'disabled' : '') }}/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">Valor de Locação:</span>
                                             <input type="text" name="rent_price" class="mask-money"
                                                    placeholder="Valor de Locação"
-                                                   value="{{ old('rent_price') ? old('rent_price') : ($contract->rent == true ? $contract->price : 'R$ 0,00') }}"
-                                                {{ (old('checkRent') == 'on'  ? '' : (old('checkRent') == 'off'  ? 'disabled' : ($contract->rent != true ? 'disabled' : ''))) }}/>
+                                                   value="{{ old('rent_price') ? old('rent_price') : ($contract->purpose == "rent" ? $contract->price : 'R$ 0,00') }}"
+                                                {{ ($contract->purpose != 'rent' ? 'disabled' : '') }}/>
                                         </label>
                                     </div>
 
@@ -323,16 +324,24 @@
                                         <label class="label">
                                             <span class="legend">Prazo do Contrato (Em meses)</span>
                                             <select name="deadline" class="select2">
-                                                <option value="12" {{ (old('deadline') == 12 ? 'selected' : ($contract->deadline == 12 ? 'selected' : '')) }}>12
+                                                <option
+                                                    value="12" {{ (old('deadline') == 12 ? 'selected' : ($contract->deadline == 12 ? 'selected' : '')) }}>
+                                                    12
                                                     meses
                                                 </option>
-                                                <option value="24" {{ (old('deadline') == 24 ? 'selected' : ($contract->deadline == 24 ? 'selected' : '')) }}>24
+                                                <option
+                                                    value="24" {{ (old('deadline') == 24 ? 'selected' : ($contract->deadline == 24 ? 'selected' : '')) }}>
+                                                    24
                                                     meses
                                                 </option>
-                                                <option value="36" {{ (old('deadline') == 36 ? 'selected' : ($contract->deadline == 36 ? 'selected' : '')) }}>36
+                                                <option
+                                                    value="36" {{ (old('deadline') == 36 ? 'selected' : ($contract->deadline == 36 ? 'selected' : '')) }}>
+                                                    36
                                                     meses
                                                 </option>
-                                                <option value="48" {{ (old('deadline') == 48 ? 'selected' : ($contract->deadline == 48 ? 'selected' : '')) }}>48
+                                                <option
+                                                    value="48" {{ (old('deadline') == 48 ? 'selected' : ($contract->deadline == 48 ? 'selected' : '')) }}>
+                                                    48
                                                     meses
                                                 </option>
                                             </select>
@@ -369,23 +378,6 @@
 
 @section('js')
     <script>
-        //validação dos checkbox
-        var chkSale = $('input[name="sale"]');
-        $('#btnSubmit').on('click', function () {
-            $('input[name="checkSale"]').val('off');
-            if (chkSale.get(0).checked) {
-                $('input[name="checkSale"]').val('on');
-            }
-        });
-
-        var chkRent = $('input[name="rent"]');
-        $('#btnSubmit').on('click', function () {
-            $('input[name="checkRent"]').val('off');
-            if (chkRent.get(0).checked) {
-                $('input[name="checkRent"]').val('on');
-            }
-        });
-
         $(function () {
             $.ajaxSetup({
                 headers: {

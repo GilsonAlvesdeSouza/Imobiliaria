@@ -64,20 +64,20 @@ class Property extends Model
     public function getCover()
     {
         $images = $this->images();
-        $cover = $images->where('cover', 1 )->first();
+        $cover = $images->where('cover', 1)->first();
 
-        if (!$cover){
-            $images = $this-> images();
+        if (!$cover) {
+            $images = $this->images();
             $cover = $images->first(['path']);
         }
 
-        if(!$cover){
-            if(empty($cover['path']) || !File::exists('../public/storage/'.$cover['path'])) {
+        if (!$cover) {
+            if (empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
                 return url(asset('backend/assets/images/no-image.jpg'));
             }
         }
 
-        return Storage::url(Cropper::thumb($cover['path'], 1366,768));
+        return Storage::url(Cropper::thumb($cover['path'], 1366, 768));
     }
 
     public function user()
@@ -103,6 +103,16 @@ class Property extends Model
     public function setRentPriceAttribute($value)
     {
         $this->attributes['rent_price'] = Utils::convertStringToDouble($value);
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return ($value == 1 ? true : false);
+    }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = ($value == '1' ? 1 : 0);
     }
 
     public function getTributeAttribute($value)

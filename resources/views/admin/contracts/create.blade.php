@@ -57,17 +57,17 @@
                             <div class="label_gc">
                                 <span class="legend">Finalidade:</span>
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="sale"{{ (old('checkSale') == 'on'  ? 'checked' : '' )  }}>
+                                    <input type="radio"
+                                           name="purpose"
+                                           {{ (old('purpose') == 'sale'  ? 'checked' : '' )  }} value="sale">
                                     <span>Venda</span>
-                                    <input type="hidden" id="checkSale" name="checkSale" value="">
                                 </label>
 
                                 <label class="label">
-                                    <input type="checkbox"
-                                           name="rent" {{ (old('checkRent') == 'on' ? 'checked' : '') }}>
+                                    <input type="radio"
+                                           name="purpose"
+                                           {{ (old('purpose') == 'rent' ? 'checked' : '') }} value="rent">
                                     <span>Locação</span>
-                                    <input type="hidden" id="checkRent" name="checkRent" value="">
                                 </label>
                             </div>
 
@@ -323,23 +323,6 @@
 
 @section('js')
     <script>
-        //validação dos checkbox
-        var chkSale = $('input[name="sale"]');
-        $('#btnSubmit').on('click', function () {
-            $('input[name="checkSale"]').val('off');
-            if (chkSale.get(0).checked) {
-                $('input[name="checkSale"]').val('on');
-            }
-        });
-
-        var chkRent = $('input[name="rent"]');
-        $('#btnSubmit').on('click', function () {
-            $('input[name="checkRent"]').val('off');
-            if (chkRent.get(0).checked) {
-                $('input[name="checkRent"]').val('on');
-            }
-        });
-
         $(function () {
             $.ajaxSetup({
                 headers: {

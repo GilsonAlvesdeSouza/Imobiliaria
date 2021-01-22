@@ -41,7 +41,7 @@
 
             <footer>
                 <p>Desenvolvido por <a href="https://www.upinside.com.br">www.<b>upinside</b>.com.br</a></p>
-                <p>&copy; <?= date("Y"); ?> - Todos os Direitos Reservados</p>
+                <p>&copy; {{ date("Y") }} - Todos os Direitos Reservados</p>
                 <p class="dash_login_left_box_support">
                     <a target="_blank"
                        class="icon-whatsapp transition text-green"
