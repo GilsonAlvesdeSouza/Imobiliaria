@@ -71,6 +71,26 @@
                                 </label>
                             </div>
 
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Status do Contrato</span>
+                                    <select name="status" class="slecet2">
+                                        <option
+                                            value="pending" {{ (old('status') == "pending" ? 'selected' : '')  }}>
+                                            Pendente
+                                        </option>
+                                        <option
+                                            value="active" {{ (old('status') == "active" ? 'selected' : '') }}>
+                                            Ativo
+                                        </option>
+                                        <option
+                                            value="canceled" {{ (old('status') == "canceled" ? 'selected' : '')  }}>
+                                            Cancelado
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+
                             <div class="app_collapse">
                                 <div class="app_collapse_header mt-2 collapse">
                                     <h3>Proprietário</h3>

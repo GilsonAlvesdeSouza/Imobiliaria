@@ -145,6 +145,16 @@
                                 </select>
                             </label>
 
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Status:</span>
+                                    <select name="status" id="" class="select2">
+                                        <option value="1"{{ (old("status") == "1" ? "selected" : ($property->status == true && old('status') == null ? "selected" : ''))  }}>Disponível</option>
+                                        <option value="0" {{ (old("status") == "0" ? "selected" : ($property->status == false && old('status') == null ? "selected" : '' )) }}>Indisponível</option>
+                                    </select>
+                                </label>
+                            </div>
+
                             <div class="app_collapse">
                                 <div class="app_collapse_header mt-2 collapse">
                                     <h3>Precificação e Valores</h3>
@@ -473,7 +483,7 @@
     <script>
         $(function () {
             $.ajaxSetup({
-                headers:{
+                headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
@@ -500,24 +510,24 @@
                 event.preventDefault();
                 var button = $(this);
                 $.post(button.data('action'), {}, function (response) {
-                    if (response.success === true){
+                    if (response.success === true) {
                         $('.property_image').find('a.btn-green').removeClass('btn-green');
                         button.addClass('btn-green');
                     }
                 }, 'json');
             });
 
-            $('.image-remove').click(function (event){
+            $('.image-remove').click(function (event) {
                 event.preventDefault();
                 var button = $(this);
 
                 $.ajax({
-                    url:button.data('action'),
-                    type:'DELETE',
-                    dataType:'json',
-                    success: function (response){
-                        if (response.success === true){
-                            button.closest('.property_image_item').fadeOut(function (){
+                    url: button.data('action'),
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success === true) {
+                            button.closest('.property_image_item').fadeOut(function () {
                                 $(this).remove();
                             });
                         }
