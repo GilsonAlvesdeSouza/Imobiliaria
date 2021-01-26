@@ -14,12 +14,29 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::group(['namespace' => 'web', 'as' => 'web.'], function () {
+    /** home page */
+    Route::get('/', 'WebController@home')->name('home');
+
+    /** contact page */
+    Route::get('/contact', 'WebController@contact')->name('contact');
+
+    /** rental page */
+    Route::get('/quero-alugar', 'Webcontroller@rent')->name('rent');
+
+    /** purchase page */
+    Route::get('/quero-comprar', 'WebController@buy')->name('buy');
+
+    /** filter page */
+    Route::get('/filtro', 'WebController@filter')->name('filter');
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
-    /** Formulário de login */
+    /** login  form */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
     Route::post('login', 'AuthController@login')->name('login.do');
 
-    /** Rotas protegidas */
+    /** protected routes */
     Route::group(['middleware' => ['auth']], function () {
 
         /** Dashborad Home */
@@ -47,3 +64,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     /** logout */
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
+
+
