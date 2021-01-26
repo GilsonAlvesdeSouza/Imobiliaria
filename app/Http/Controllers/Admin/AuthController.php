@@ -5,6 +5,8 @@ namespace LaraDev\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\Model\Admin\Contract;
+use LaraDev\Model\Admin\Property;
 use LaraDev\User;
 use function GuzzleHttp\Promise\all;
 
@@ -13,7 +15,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        if(Auth::check() === true){
+        if (Auth::check() === true) {
             return redirect()->route('admin.home');
         }
         return view('admin.index');
@@ -21,12 +23,42 @@ class AuthController extends Controller
 
     public function home()
     {
-        return view('admin.dashboard');
+        $lessors = User::lessors()->count();
+        $lessees = User::lessees()->count();
+        $team = User::where('admin', 1)->count();
+
+        $propertiesAvailable = Property::available()->count();
+        $propertiesUnavailable = Property::Unavailable()->count();
+        $propertiesTotal = Property::all()->count();
+
+        $contractsActive = Contract::active()->count();
+        $contractsPending = Contract::pending()->count();
+        $contractsCanceled = Contract::canceled()->count();
+        $contractsTotal = Contract::all()->count();
+
+        $contracts = Contract::orderBy('id', 'DESC')->limit(10)->get();
+
+        $properties = Property::orderBy('id', 'DESC')->limit(3)->get();
+
+        return view('admin.dashboard', [
+            'lessors' => $lessors,
+            'lessees' => $lessees,
+            'team' => $team,
+            'propertiesAvailable' => $propertiesAvailable,
+            'propertiesUnavailable' => $propertiesUnavailable,
+            'propertiesTotal' => $propertiesTotal,
+            'contractsActive' => $contractsActive,
+            'contractsPending' => $contractsPending,
+            'contractsCanceled' => $contractsCanceled,
+            'contractsTotal' => $contractsTotal,
+            'contracts' => $contracts,
+            'properties' => $properties
+        ]);
     }
 
     public function login(Request $request)
     {
-        if (in_array('', $request->only('mail', 'password'))) {
+        if (in_array('', $request->only('email', 'password'))) {
             $json['message'] = $this->message->warning("Informe 'Login' e 'Senha' para efetuar o login!")->render();
             return response()->json($json);
         }

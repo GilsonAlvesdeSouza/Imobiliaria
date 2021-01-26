@@ -29,6 +29,12 @@
                         @endmessage
                     @endforeach
                 @endif
+
+                @if(session()->exists('message'))
+                    @message(['color' => session()->get('color')])
+                    <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                    @endmessage
+                @endif
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Dados Cadastrais</a>
@@ -149,8 +155,14 @@
                                 <label class="label">
                                     <span class="legend">Status:</span>
                                     <select name="status" id="" class="select2">
-                                        <option value="1"{{ (old("status") == "1" ? "selected" : ($property->status == true && old('status') == null ? "selected" : ''))  }}>Disponível</option>
-                                        <option value="0" {{ (old("status") == "0" ? "selected" : ($property->status == false && old('status') == null ? "selected" : '' )) }}>Indisponível</option>
+                                        <option
+                                            value="1"{{ (old("status") == "1" ? "selected" : ($property->status == true && old('status') == null ? "selected" : ''))  }}>
+                                            Disponível
+                                        </option>
+                                        <option
+                                            value="0" {{ (old("status") == "0" ? "selected" : ($property->status == false && old('status') == null ? "selected" : '' )) }}>
+                                            Indisponível
+                                        </option>
                                     </select>
                                 </label>
                             </div>

@@ -81,6 +81,8 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
 
+//        dd($user->getAttributes());
+
         return view('admin.users.edit', [
             'user' => $user,
         ]);

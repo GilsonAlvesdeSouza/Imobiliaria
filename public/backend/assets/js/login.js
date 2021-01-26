@@ -11,7 +11,7 @@ $(function () {
 
         const form = $(this);
         const action = form.attr('action');
-        const email = 'gilsonalvesdesouza@hotmail.com';//form.find('input[name="email"]').val();
+        const email = form.find('input[name="email"]').val();
         const password = form.find('input[name="password_check"]').val();
 
         $.post(action, {email:email, password:password}, function (response) {

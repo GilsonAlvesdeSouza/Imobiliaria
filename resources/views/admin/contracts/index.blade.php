@@ -41,7 +41,7 @@
                     <td><a href="{{ route('admin.contracts.edit', ['contract' => $contract->id]) }}" class="text-orange">{{ $contract->id }}</a></td>
                     <td><a href="{{ route('admin.users.edit', ['user' => $contract->ownerObject->id]) }}" class="text-orange">{{ $contract->ownerObject->name }}</a></td>
                     <td><a href="{{ route('admin.users.edit', ['user' => $contract->acquirerObject->id]) }}" class="text-orange">{{ $contract->acquirerObject->name }}</a></td>
-                    <td>{{ $contract->sale == true ? 'Venda' : 'Locação' }}</td>
+                    <td>{{ $contract->purpose == 'sale' ? 'Venda' : 'Locação' }}</td>
                     <td>{{ $contract->start_at }}</td>
                     <td>{{ $contract->deadline }} meses</td>
                 </tr>

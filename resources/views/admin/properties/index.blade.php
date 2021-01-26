@@ -26,17 +26,21 @@
             <div class="dash_content_app_box_stage">
                 <div id="realties">
 
-                    @if(!empty($properties))
-                        @foreach($properties as $property)
-                            <div class="realty_list">
+                    <div class="realty_list">
+                        @if(!empty($properties))
+                            @foreach($properties as $property)
                                 <div class="realty_list_item mb-2">
                                     <div class="realty_list_item_actions_stats">
                                         <img
-                                            src="{{ $property->getCover() }}"
-                                            alt="">
+                                            src="{{ $property->getCover() }}" alt="">
                                         <ul>
-                                            <li>Venda: R$ {{ $property->sale_price }}</li>
-                                            <li>Aluguel: R$ {{ $property->rent_price }}</li>
+                                            @if($property->sale == true && !empty($property->sale_price))
+                                                <li>Venda: R$ {{ $property->sale_price }}</li>
+                                            @endif
+
+                                            @if($property->rent == true && !empty($property->rent_price))
+                                                <li>Aluguel: R$ {{ $property->rent_price }}</li>
+                                            @endif
                                         </ul>
                                     </div>
 
@@ -98,16 +102,17 @@
                                         <div>
                                             <a href="" class="btn btn-blue icon-eye">Visualizar
                                                 Imóvel</a>
-                                            <a href="{{ route('admin.properties.edit', ['id' => $property->id]) }}" class="btn btn-green icon-pencil-square-o">Editar
+                                            <a href="{{ route('admin.properties.edit', ['id' => $property->id]) }}"
+                                               class="btn btn-green icon-pencil-square-o">Editar
                                                 Imóvel</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="no-content">Não foram encontrados registros!</div>
-                    @endif
+                            @endforeach
+                        @else
+                            <div class="no-content">Não foram encontrados registros!</div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

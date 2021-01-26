@@ -179,6 +179,9 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+        if (empty($value) || ($value == null)) {
+            unset($this->attributes['password']);
+        }
     }
 
     public function setSpouseDocumentAttribute($value)

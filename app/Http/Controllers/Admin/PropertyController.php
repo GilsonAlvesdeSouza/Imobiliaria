@@ -4,6 +4,7 @@ namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\PropertyRequest;
 use LaraDev\Model\Admin\Property;
@@ -49,6 +50,14 @@ class PropertyController extends Controller
     {
         try {
             $createProperty = Property::create($request->all());
+
+            $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+            if ($validator->fails() === true) {
+                return redirect()->back()->withInput()->with([
+                    'color' => 'orange',
+                    'message' => 'Todas as imagens devem ser do tipo ( jpg, jpeg ou png )'
+                ]);
+            }
 
             if ($request->allFiles()) {
                 foreach ($request->allFiles()['files'] as $image) {
@@ -103,7 +112,6 @@ class PropertyController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function update(PropertyRequest $request, $id)
     {
@@ -128,8 +136,25 @@ class PropertyController extends Controller
         $property->setSteamRoomAttribute($request->steam_room);
         $property->setViewOfTheSeaAttribute($request->view_of_theSea);
 
+
         try {
             $property->save();
+
+            //com SweetAlert
+            $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+            if ($validator->fails() === true) {
+                return redirect()->back()->withInput()->with('warning', 'Todas as imagens devem ser do tipo jpg, jpeg ou png.');
+            }
+
+//            //do jeito que o curso ensina
+//            $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+//            if ($validator->fails() === true) {
+//                return redirect()->back()->withInput()->with([
+//                    'color' => 'orange',
+//                    'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.',
+//                ]);
+//            }
+
             if ($request->allFiles()) {
                 foreach ($request->allFiles()['files'] as $image) {
                     $propertyImage = new PropertyImage();

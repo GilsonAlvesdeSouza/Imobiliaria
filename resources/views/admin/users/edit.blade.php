@@ -267,7 +267,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
-                                            <input type="tel" name="telephone" class="mask-phone"
+                                            <input type="tel" name="telephone" class="mask-cell"
                                                    placeholder="Número do Telefonce com DDD"
                                                    value="{{ old('telephone') ?? $user->telephone }}"/>
                                         </label>
@@ -276,7 +276,7 @@
                                             <span class="legend">*Celular:</span>
                                             <input type="tel" name="cell" class="mask-cell"
                                                    placeholder="Número do Telefonce com DDD"
-                                                   value="{{ old('cell')?? $user->cell }}"/>
+                                                   value="{{ old('cell') ?? $user->cell }}"/>
                                         </label>
                                     </div>
                                 </div>
@@ -492,11 +492,15 @@
                                                     <div class="realty_list_item mb-1">
                                                         <div class="realty_list_item_actions_stats">
                                                             <img
-                                                                src="{{ $property->getCover() }}"
-                                                                alt="">
+                                                                src="{{ $property->getCover() }}" alt="">
                                                             <ul>
-                                                                <li>Venda: R$ {{ $property->sale_price }}</li>
-                                                                <li>Aluguel: R$ {{ $property->rent_price }}</li>
+                                                                @if($property->sale == true && !empty($property->sale_price))
+                                                                    <li>Venda: R$ {{ $property->sale_price }}</li>
+                                                                @endif
+
+                                                                @if($property->rent == true && !empty($property->rent_price))
+                                                                    <li>Aluguel: R$ {{ $property->rent_price }}</li>
+                                                                @endif
                                                             </ul>
                                                         </div>
 
