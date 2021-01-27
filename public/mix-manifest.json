@@ -1,11 +1,19 @@
 {
+    "/web/assets/css/bootstrap.css": "/web/assets/css/bootstrap.css?id=4236255a91dd53ca5a5d",
+    "/web/assets/css/app.css": "/web/assets/css/app.css?id=bdb16c7116ec11c28fea",
     "/backend/assets/css/reset.css": "/backend/assets/css/reset.css?id=3537f958f4cc0649ea1b",
     "/backend/assets/css/boot.css": "/backend/assets/css/boot.css?id=09d70ea1447350e734d2",
     "/backend/assets/css/login.css": "/backend/assets/css/login.css?id=66041157945d3ad4daef",
     "/backend/assets/css/style.css": "/backend/assets/css/style.css?id=13949856af8b6402b5be",
+    "/web/assets/libs/libs.css": "/web/assets/libs/libs.css?id=ff15e0102f5c869e5e3d",
+    "/web/assets/js/jquery.js": "/web/assets/js/jquery.js?id=378087a64e1394fc51f3",
+    "/web/assets/js/bootstrap.bundle.js": "/web/assets/js/bootstrap.bundle.js?id=f6f318002edd81c17fe0",
+    "/web/assets/libs/lightbox/ekko-lightbox.min.js": "/web/assets/libs/lightbox/ekko-lightbox.min.js?id=981c86858cfcad919e29",
+    "/web/assets/js/libs.js": "/web/assets/js/libs.js?id=26188d7d3b2ad40637f8",
+    "/web/assets/js/scripts.js": "/web/assets/js/scripts.js?id=90034629a6cc25a90792",
     "/backend/assets/css/libs.css": "/backend/assets/css/libs.css?id=790880667e562a5b1173",
     "/backend/assets/js/jquery.js": "/backend/assets/js/jquery.js?id=378087a64e1394fc51f3",
-    "/backend/assets/js/login.js": "/backend/assets/js/login.js?id=4d7e32425166ffd0d9f6",
+    "/backend/assets/js/login.js": "/backend/assets/js/login.js?id=ed8c6277093ea53289f8",
     "/backend/assets/js/libs.js": "/backend/assets/js/libs.js?id=5de1053c936a23ebc2fb",
     "/backend/assets/js/scripts.js": "/backend/assets/js/scripts.js?id=caa1ec9c8eff2fe9111d"
 }
