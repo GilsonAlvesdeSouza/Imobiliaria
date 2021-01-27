@@ -131,7 +131,7 @@
                             <article class="card main_properties_item">
                                 <div class="img-responsive-16by9">
                                     <a href="">
-                                        <img src="properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg"
+                                        <img src="{{ url(asset('web/properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg')) }}"
                                              class="card-img-top"
                                              alt="">
                                     </a>
@@ -148,17 +148,17 @@
                                 </div>
                                 <div class="card-footer d-flex">
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/bed.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">4</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/garage.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">2</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/util-area.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">1500 m&sup2;</p>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                             <article class="card main_properties_item">
                                 <div class="img-responsive-16by9">
                                     <a href="">
-                                        <img src="properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg"
+                                        <img src="{{ url(asset('web/properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg')) }}"
                                              class="card-img-top"
                                              alt="">
                                     </a>
@@ -186,17 +186,17 @@
                                 </div>
                                 <div class="card-footer d-flex">
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/bed.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">4</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/garage.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">2</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/util-area.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">1500 m&sup2;</p>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                             <article class="card main_properties_item">
                                 <div class="img-responsive-16by9">
                                     <a href="">
-                                        <img src="properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg"
+                                        <img src="{{ url(asset('web/properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg')) }}"
                                              class="card-img-top"
                                              alt="">
                                     </a>
@@ -224,17 +224,17 @@
                                 </div>
                                 <div class="card-footer d-flex">
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/bed.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">4</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/garage.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">2</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/util-area.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">1500 m&sup2;</p>
                                     </div>
                                 </div>
@@ -245,7 +245,7 @@
                             <article class="card main_properties_item">
                                 <div class="img-responsive-16by9">
                                     <a href="">
-                                        <img src="properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg"
+                                        <img src="{{ url(asset('web/properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg')) }}"
                                              class="card-img-top"
                                              alt="">
                                     </a>
@@ -262,17 +262,17 @@
                                 </div>
                                 <div class="card-footer d-flex">
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/bed.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">4</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/garage.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">2</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
-                                        <img src="assets/images/icons/util-area.png" class="img-fluid" alt="">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
                                         <p class="text-muted">1500 m&sup2;</p>
                                     </div>
                                 </div>

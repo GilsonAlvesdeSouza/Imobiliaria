@@ -250,3 +250,46 @@
     </section>
 
 @endsection
+
+@section('js')
+    <script>
+
+        function markMap() {
+
+            var locationJson = $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=Rodovia+Doutor+Antonio+Luiz+Moura+Gonzaga,+3339+Florianopolis+Campeche&key=', function(response){
+                console.log(response.results[0].geometry.location.lat);
+                console.log(response.results[0].geometry.location.lng);
+
+                lat = response.results[0].geometry.location.lat;
+                lng = response.results[0].geometry.location.lng;
+
+                var citymap = {
+                    property: {
+                        center: {lat: lat, lng: lng},
+                        population: 100
+                    }
+                };
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 14,
+                    center: {lat: lat, lng: lng},
+                    mapTypeId: 'terrain'
+                });
+
+                for (var city in citymap) {
+                    var cityCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: citymap[city].center,
+                        radius: Math.sqrt(citymap[city].population) * 100
+                    });
+                }
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=markMap"></script>
+@endsection
