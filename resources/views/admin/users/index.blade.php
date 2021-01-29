@@ -9,13 +9,13 @@
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
-                        <li><a href="">Dashboard</a></li>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="" class="text-orange">Clientes</a></li>
                     </ul>
                 </nav>
 
-                <a href="dashboard.php?app=users/create" class="btn btn-orange icon-user ml-1">Criar Cliente</a>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-orange icon-user ml-1">Criar Cliente</a>
                 <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>
             </div>
         </header>
@@ -27,7 +27,6 @@
                 <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
                     <thead>
                     <tr>
-{{--                        <th>#</th>--}}
                         <th>Nome Completo</th>
                         <th>CPF</th>
                         <th>E-mail</th>
@@ -37,7 +36,6 @@
                     <tbody>
                     @foreach($users as $user)
                     <tr>
-{{--                        <td>1</td>--}}
                         <td><a href="{{ route('admin.users.edit', ['user' => $user->id]) }}" class="text-orange">{{ $user->name }}</a></td>
                         <td>{{ $user->document }}</td>
                         <td><a href="mailto:{{ $user->email }}" class="text-orange">{{ $user->email }}</a></td>

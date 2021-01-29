@@ -14,7 +14,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'web', 'as' => 'web.'], function () {
+Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
     /** home page */
     Route::get('/', 'WebController@home')->name('home');
 
@@ -22,7 +22,7 @@ Route::group(['namespace' => 'web', 'as' => 'web.'], function () {
     Route::get('/contact', 'WebController@contact')->name('contact');
 
     /** rental page */
-    Route::get('/quero-alugar', 'Webcontroller@rent')->name('rent');
+    Route::get('/quero-alugar', 'WebController@rent')->name('rent');
 
     /** purchase page */
     Route::get('/quero-comprar', 'WebController@buy')->name('buy');

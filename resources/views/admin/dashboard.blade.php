@@ -13,14 +13,14 @@
                         <h4 class="icon-users">Clientes</h4>
                         <p><b>Locadores:</b> {{ $lessors }}</p>
                         <p><b>Locatários:</b> {{ $lessees }}</p>
-                        <p><b>Time:</b> {{ $contractsTotal }}</p>
+                        <p><b>Time:</b> {{ $team }}</p>
                     </article>
 
                     <article class="blog radius">
                         <h4 class="icon-home">Imóveis</h4>
                         <p><b>Disponíveis:</b> {{ $propertiesAvailable }}</p>
                         <p><b>Locados:</b> {{ $propertiesUnavailable }}</p>
-                        <p><b>Total:</b> {{ $contractsTotal }}</p>
+                        <p><b>Total:</b> {{ $propertiesTotal }}</p>
                     </article>
 
                     <article class="users radius">

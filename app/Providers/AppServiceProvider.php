@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Blade::component('admin.components.message', 'message');
+        \URL::forceScheme('https');
     }
 
     /**
