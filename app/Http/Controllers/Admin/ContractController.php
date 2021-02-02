@@ -84,7 +84,7 @@ class ContractController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -150,7 +150,21 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function remover($id)
+    {
+        $contract = Contract::where('id', $id)->first();
+        $contract->delete();
+        toast('Contrato excluido com sucesso!', 'success');
+        return redirect()->route('admin.contracts.index');
     }
 
     public function getDataOwner(Request $request)

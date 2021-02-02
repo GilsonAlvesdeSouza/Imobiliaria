@@ -1,6 +1,10 @@
 @extends('admin.master.master')
 
 @section('content')
+    @php
+        if($errors->all())
+               toast($errors->all()[0], 'error');
+    @endphp
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
@@ -22,13 +26,13 @@
         <div class="dash_content_app_box">
             <div class="nav">
 
-                @if($errors->all())
-                    @foreach($errors->all() as $error)
-                        @message(['color' => 'orange'])
-                        <p class="icon-asterisk">{{ $error }}</p>
-                        @endmessage
-                    @endforeach
-                @endif
+{{--                @if($errors->all())--}}
+{{--                    @foreach($errors->all() as $error)--}}
+{{--                        @message(['color' => 'orange'])--}}
+{{--                        <p class="icon-asterisk">{{ $error }}</p>--}}
+{{--                        @endmessage--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Dados Cadastrais</a>
@@ -268,14 +272,14 @@
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
                                             <input type="tel" name="telephone" class="mask-cell"
-                                                   placeholder="Número do Telefonce com DDD"
+                                                   placeholder="Número do Telefone com DDD"
                                                    value="{{ old('telephone') ?? $user->telephone }}"/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">*Celular:</span>
                                             <input type="tel" name="cell" class="mask-cell"
-                                                   placeholder="Número do Telefonce com DDD"
+                                                   placeholder="Número do Telefone com DDD"
                                                    value="{{ old('cell') ?? $user->cell }}"/>
                                         </label>
                                     </div>

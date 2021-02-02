@@ -1,6 +1,11 @@
 @extends('admin.master.master')
 
 @section('content')
+    @php
+        if($errors->all())
+               toast($errors->all()[0], 'error');
+    @endphp
+
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
@@ -22,13 +27,6 @@
         <div class="dash_content_app_box">
             <div class="nav">
 
-                @if($errors->all())
-                    @foreach($errors->all() as $error)
-                        @message(['color' => 'orange'])
-                        <p class="icon-asterisk">{{ $error }}</p>
-                        @endmessage
-                    @endforeach
-                @endif
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Dados Cadastrais</a>
@@ -284,7 +282,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">*Senha:</span>
-                                            <input type="text" name="password" placeholder="Senha de acesso"
+                                            <input type="password" name="password" placeholder="Senha de acesso"
                                                    value="{{ old('password') }}"/>
                                         </label>
                                         <label class="label">

@@ -158,7 +158,12 @@ class User extends Authenticatable
 
     public function getTelephoneAttribute($value)
     {
-        return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+        if ($value) {
+            return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+
+        } else {
+            return null;
+        }
     }
 
     public function setTelephoneAttribute($value)
@@ -168,7 +173,11 @@ class User extends Authenticatable
 
     public function getCellAttribute($value)
     {
-        return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+        if ($value) {
+            return substr($value, 0, 0) . '(' . substr($value, 0, 2) . ') ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+        } else {
+            return null;
+        }
     }
 
     public function setCellAttribute($value)
