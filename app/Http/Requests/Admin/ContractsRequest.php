@@ -25,6 +25,7 @@ class ContractsRequest extends FormRequest
     public function rules()
     {
         return [
+            'purpose' => 'required',
             'owner' => 'required',
             'acquirer' => 'required|different:owner',
             'sale_price' => 'required_if:sale,on',

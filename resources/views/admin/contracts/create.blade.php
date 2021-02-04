@@ -179,7 +179,7 @@
                                     <label class="label">
                                         <span class="legend">Imóvel:</span>
                                         <select name="property" class="select2"
-                                                data-action="{{ route('admin.contracts.getDataProprety') }}">
+                                                data-action="{{ route('admin.contracts.getDataProperty') }}">
                                             <option value="">Não informado</option>
                                         </select>
                                     </label>
@@ -188,13 +188,13 @@
                                         <label class="label">
                                             <span class="legend">Valor de Venda:</span>
                                             <input type="tel" name="sale_price" class="mask-money"
-                                                   placeholder="Valor de Venda" {{ old('sale') != 'on' ? 'disabled' :''}}/>
+                                                   placeholder="Valor de Venda" {{ (old('sale') != 'on' ? 'disabled' : '') }}/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">Valor de Locação:</span>
                                             <input type="text" name="rent_price" class="mask-money"
-                                                   placeholder="Valor de Locação" {{ old('rent') != 'on' ? 'disabled' :''}}/>
+                                                   placeholder="Valor de Locação" {{ (old('rent') != 'on' ? 'disabled' : '') }}/>
                                         </label>
                                     </div>
 
@@ -343,7 +343,9 @@
 
 @section('js')
     <script>
+
         $(function () {
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -351,74 +353,132 @@
             });
 
             function setFieldOwner(response) {
-                //spouse
-
-                var selectOwnerSpouse = $('select[name="owner_spouse"]');
-                selectOwnerSpouse.html('');
+                // Spouse
+                $('select[name="owner_spouse"]').html('');
                 if (response.spouse) {
-                    selectOwnerSpouse.append($('<option>', {
+                    $('select[name="owner_spouse"]').append($('<option>', {
                         value: 0,
-                        text: 'Não Informar'
+                        text: 'Não informar'
                     }));
-                    selectOwnerSpouse.append($('<option>', {
+
+                    $('select[name="owner_spouse"]').append($('<option>', {
                         value: 1,
-                        text: response.spouse.spouse_name + ' - (' + response.spouse.spouse_document + ')',
+                        text: response.spouse.spouse_name + '(' + response.spouse.spouse_document + ')',
                         selected: ($('input[name="owner_spouse_persist"]').val() != 0 ? 'selected' : false)
                     }));
                 } else {
-                    selectOwnerSpouse.append($('<option>', {
-                        value: 0,
-                        text: 'Não Informado'
-                    }));
-                }
-
-                //companies
-                var selectOwnerCompany = $('select[name="owner_company"]');
-                selectOwnerCompany.html('');
-                if (response.companies.length) {
-                    selectOwnerCompany.append($('<option>', {
-                        value: 0,
-                        text: 'Não Informar'
-                    }));
-                    $.each(response.companies, function (key, value) {
-                        selectOwnerCompany.append($('<option>', {
-                            value: value.id,
-                            text: value.alias_name + ' - (' + value.document_company + ')',
-                            selected: ($('input[name="owner_company_persist"]').val() != 0 &&
-                            $('input[name="owner_company_persist"]').val() == value.id ? 'selected' : false)
-                        }));
-                    });
-                } else {
-                    selectOwnerCompany.append($('<option>', {
+                    $('select[name="owner_spouse"]').append($('<option>', {
                         value: 0,
                         text: 'Não informado'
                     }));
                 }
 
-                //properties
-                var selecOwnertProperty = $('select[name="property"]');
-                selecOwnertProperty.html('');
-                if (response.properties.length && response.properties != '') {
-                    selecOwnertProperty.append($('<option>', {
+                // Companies
+                $('select[name="owner_company"]').html('');
+                if (response.companies != null && response.companies.length) {
+                    $('select[name="owner_company"]').append($('<option>', {
                         value: 0,
                         text: 'Não informar'
                     }));
-                    $.each(response.properties, function (key, value) {
-                        selecOwnertProperty.append($('<option>', {
+
+                    $.each(response.companies, function (key, value) {
+                        $('select[name="owner_company"]').append($('<option>', {
                             value: value.id,
-                            text: value.description,
-                            selected: ($('input[name="property_persist"]').val() != 0 &&
-                            $('input[name="property_persist"]').val() == value.id ? 'selected' : false)
+                            text: value.alias_name + '(' + value.document_company + ')',
+                            selected: ($('input[name="owner_company_persist"]').val() != 0 && $('input[name="owner_company_persist"]').val() == value.id ? 'selected' : false)
                         }));
                     });
+
                 } else {
-                    selecOwnertProperty.append($('<option>', {
+                    $('select[name="owner_company"]').append($('<option>', {
                         value: 0,
-                        text: 'Não Informado'
+                        text: 'Não informado'
                     }));
                 }
 
+                // Properties
+                $('select[name="property"]').html('');
+                if (response.properties != null && response.properties.length) {
+                    $('select[name="property"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informar'
+                    }));
+
+                    $.each(response.properties, function (key, value) {
+                        $('select[name="property"]').append($('<option>', {
+                            value: value.id,
+                            text: value.description,
+                            selected: ($('input[name="property_persist"]').val() != 0 && $('input[name="property_persist"]').val() == value.id ? 'selected' : false)
+                        }));
+                    });
+
+                } else {
+                    $('select[name="property"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informado'
+                    }));
+                }
             }
+
+            function setFieldAcquirer(response) {
+                // Spouse
+                $('select[name="acquirer_spouse"]').html('');
+                if (response.spouse) {
+                    $('select[name="acquirer_spouse"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informar'
+                    }));
+
+                    $('select[name="acquirer_spouse"]').append($('<option>', {
+                        value: 1,
+                        text: response.spouse.spouse_name + '(' + response.spouse.spouse_document + ')',
+                        selected: ($('input[name="acquirer_spouse_persist"]').val() != 0 ? 'selected' : false)
+                    }));
+                } else {
+                    $('select[name="acquirer_spouse"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informado'
+                    }));
+                }
+
+                // Companies
+                $('select[name="acquirer_company"]').html('');
+                if (response.companies != null && response.companies.length) {
+                    $('select[name="acquirer_company"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informar'
+                    }));
+
+                    $.each(response.companies, function (key, value) {
+                        $('select[name="acquirer_company"]').append($('<option>', {
+                            value: value.id,
+                            text: value.alias_name + '(' + value.document_company + ')',
+                            selected: ($('input[name="acquirer_company_persist"]').val() != 0 && $('input[name="acquirer_company_persist"]').val() == value.id ? 'selected' : false)
+                        }));
+                    });
+
+                } else {
+                    $('select[name="acquirer_company"]').append($('<option>', {
+                        value: 0,
+                        text: 'Não informado'
+                    }));
+                }
+            }
+
+            function setFieldProperty(response) {
+                if (response.property != null) {
+                    $('input[name="sale_price"]').val(response.property.sale_price);
+                    $('input[name="rent_price"]').val(response.property.rent_price);
+                    $('input[name="tribute"]').val(response.property.tribute);
+                    $('input[name="condominium"]').val(response.property.condominium);
+                } else {
+                    $('input[name="sale_price"]').val('0,00');
+                    $('input[name="rent_price"]').val('0,00');
+                    $('input[name="tribute"]').val('0,00');
+                    $('input[name="condominium"]').val('0,00');
+                }
+            }
+
 
             $('select[name="owner"]').change(function () {
                 var owner = $(this);
@@ -427,84 +487,25 @@
                 }, 'json');
             });
 
-            if ($('select[name="owner"]').val() != 0) {
+            if($('select[name="owner"]').val() != 0) {
                 var owner = $('select[name="owner"]');
                 $.post(owner.data('action'), {user: owner.val()}, function (response) {
                     setFieldOwner(response);
                 }, 'json');
             }
 
-            function setFieldAcquirer(response) {
-                //spouse
-                var selectAquirerSpouse = $('select[name="acquirer_spouse"]');
-                selectAquirerSpouse.html('');
-                if (response.spouse) {
-                    selectAquirerSpouse.append($('<option>', {
-                        value: 0,
-                        text: 'Não Informar'
-                    }));
-                    selectAquirerSpouse.append($('<option>', {
-                        value: 1,
-                        text: response.spouse.spouse_name + ' - (' + response.spouse.spouse_document + ')',
-                        selected: ($('input[name="acquirer_spouse_persist"]').val() != 0 ? 'selected' : false)
-                    }));
-                } else {
-                    selectAquirerSpouse.append($('<option>', {
-                        value: 0,
-                        text: 'Não Informado'
-                    }));
-                }
-
-                //companies
-                var selectAquirerCompany = $('select[name="acquirer_company"]')
-                selectAquirerCompany.html('');
-                if (response.companies.length) {
-                    selectAquirerCompany.append($('<option>', {
-                        value: 0,
-                        text: 'Não Informar'
-                    }));
-                    $.each(response.companies, function (key, value) {
-                        selectAquirerCompany.append($('<option>', {
-                            value: value.id,
-                            text: value.alias_name + ' - (' + value.document_company + ')',
-                            selected: ($('input[name="acquirer_company_persist"]').val() != 0 &&
-                            $('input[name="acquirer_company_persist"]').val() == value.id ? 'selected' : false)
-                        }));
-                    });
-                } else {
-                    selectAquirerCompany.append($('<option>', {
-                        value: 0,
-                        text: 'Não informado'
-                    }));
-                }
-            }
-
             $('select[name="acquirer"]').change(function () {
                 var acquirer = $(this);
                 $.post(acquirer.data('action'), {user: acquirer.val()}, function (response) {
-                    setFieldAcquirer(response);
+                    setFieldAcquirer(response)
                 }, 'json');
             });
 
-            if ($('select[name="acquirer"]').val() != 0) {
+            if($('select[name="acquirer"]').val() != 0) {
                 var acquirer = $('select[name="acquirer"]');
                 $.post(acquirer.data('action'), {user: acquirer.val()}, function (response) {
                     setFieldAcquirer(response);
                 }, 'json');
-            }
-
-            function setFieldProperty(response) {
-                if (response.property != null) {
-                    $('input[name="sale_price"]').val('R$ ' + response.property.sale_price);
-                    $('input[name="rent_price"]').val('R$ ' + response.property.rent_price);
-                    $('input[name="tribute"]').val('R$ ' + response.property.tribute);
-                    $('input[name="condominium"]').val('R$ ' + response.property.condominium);
-                } else {
-                    $('input[name="sale_price"]').val('R$ 0,00');
-                    $('input[name="rent_price"]').val('R$ 0,00');
-                    $('input[name="tribute"]').val('R$ 0,00');
-                    $('input[name="condominium"]').val('R$ 0,00');
-                }
             }
 
             $('select[name="property"]').change(function () {
@@ -514,7 +515,7 @@
                 }, 'json');
             });
 
-            if ($('input[name="property_persist"]').val() > 0) {
+            if($('input[name="property_persist"]').val() > 0) {
                 var property = $('select[name="property"]');
                 $.post(property.data('action'), {property: $('input[name="property_persist"]').val()}, function (response) {
                     setFieldProperty(response);
@@ -522,5 +523,4 @@
             }
         });
     </script>
-
 @endsection

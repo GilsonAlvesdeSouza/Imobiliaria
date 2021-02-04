@@ -150,21 +150,10 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function remover($id)
-    {
         $contract = Contract::where('id', $id)->first();
         $contract->delete();
-        toast('Contrato excluido com sucesso!', 'success');
-        return redirect()->route('admin.contracts.index');
+
+        return response()->json(['status' => 'O item  foi excluído..']);
     }
 
     public function getDataOwner(Request $request)
@@ -195,24 +184,25 @@ class ContractController extends Controller
             }
         }
 
-        $companies = '';
         if (!empty($lessor)) {
-            $companies = $lessor->Companies()->get([
+            $companies = $lessor->companies()->get([
                 'id',
                 'alias_name',
                 'document_company'
             ]);
         }
 
-        $properties [] = '';
+        $properties = [] ;
         if (!empty($lessor)) {
-            $getProperties = $lessor->Properties()->get();
+            $getProperties = $lessor->properties()->get();
             foreach ($getProperties as $property) {
-                $properties[] = [
-                    'id' => $property->id,
-                    'description' => $property->street . ' N°:' . $property->number . ' ' . $property->complement . ' ' .
-                        $property->neighborhood . ' ' . $property->city . '/' . $property->state . ' CEP:' . $property->zipcode
-                ];
+                if ($property->status === true) {
+                    $properties[] = [
+                        'id' => $property->id,
+                        'description' => $property->street . ' N°:' . $property->number . ' ' . $property->complement . ' ' .
+                            $property->neighborhood . ' ' . $property->city . '/' . $property->state . ' CEP:' . $property->zipcode
+                    ];
+                }
             }
         }
 
@@ -270,7 +260,7 @@ class ContractController extends Controller
         return response()->json($json);
     }
 
-    public function getDataProprety(Request $request)
+    public function getDataProperty(Request $request)
     {
 
         $property = Property::where('id', $request->property)->first([
@@ -282,9 +272,10 @@ class ContractController extends Controller
         ]);
 
         $json = [
-            'property' => ($property ? $property : ''),
+            'property' => ($property ? $property : null),
         ];
 
         return response()->json($json);
     }
+
 }

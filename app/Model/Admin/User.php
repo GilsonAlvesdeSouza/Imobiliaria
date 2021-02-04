@@ -108,9 +108,6 @@ class User extends Authenticatable
         return $query->where('lessee', true)->get();
     }
 
-    /**
-     * @param $value
-     */
     public function setLessorAttribute($value)
     {
         $this->attributes['lessor'] = Utils::setValueCheckBox($value);

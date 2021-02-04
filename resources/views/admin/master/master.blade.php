@@ -29,12 +29,12 @@
 <div class="ajax_response"></div>
 
 @php
-    if(\Illuminate\Support\Facades\File::exists(public_path(). '/storage/' . \Illuminate\Support\Facades\Auth::user()->cover)){
+    if(!empty(\Illuminate\Support\Facades\Auth::user()->cover) &&
+    \Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . \Illuminate\Support\Facades\Auth::user()->cover)){
         $cover = \Illuminate\Support\Facades\Auth::user()->url_cover;
-    }else{
+    } else {
         $cover = url(asset('backend/assets/images/avatar.jpg'));
     }
-   // dd(\Illuminate\Support\Facades\Auth::user());
 @endphp
 
 <div class="dash">
@@ -114,6 +114,7 @@
 <script src="{{ url(asset('backend/assets/js/tinymce/tinymce.min.js')) }}"></script>
 <script src="{{ url(mix('backend/assets/js/libs.js')) }}"></script>
 <script src="{{ url(mix('backend/assets/js/scripts.js')) }}"></script>
+<script src="{{ url(asset('js/sweetalert2.all.min.js')) }}"></script>
 
 @hasSection('js')
     @yield('js')

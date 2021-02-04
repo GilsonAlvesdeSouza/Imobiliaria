@@ -64,6 +64,9 @@ mix
     .scripts([
         'resources/views/admin/assets/js/login.js'
     ], 'public/backend/assets/js/login.js')
+    .scripts([
+        'resources/js/sweetalert2.all.min.js'
+    ], 'public/js/sweetalert2.all.min.js')
 
     .scripts([
         'resources/views/admin/assets/js/datatables/js/jquery.dataTables.min.js',

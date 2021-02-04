@@ -184,7 +184,7 @@
                                     <label class="label">
                                         <span class="legend">Imóvel:</span>
                                         <select name="property" class="select2"
-                                                data-action="{{ route('admin.contracts.getDataProprety') }}">
+                                                data-action="{{ route('admin.contracts.getDataProperty') }}">
                                             <option value="">Não informado</option>
                                         </select>
                                     </label>
@@ -451,28 +451,27 @@
                 }
 
                 //properties
-                var selecOwnertProperty = $('select[name="property"]');
-                selecOwnertProperty.html('');
-                if (response.properties.length && response.properties != '') {
-                    selecOwnertProperty.append($('<option>', {
+                $('select[name="property"]').html('');
+                if (response.properties != null && response.properties.length) {
+                    $('select[name="property"]').append($('<option>', {
                         value: 0,
                         text: 'Não informar'
                     }));
+
                     $.each(response.properties, function (key, value) {
-                        selecOwnertProperty.append($('<option>', {
+                        $('select[name="property"]').append($('<option>', {
                             value: value.id,
                             text: value.description,
-                            selected: ($('input[name="property_persist"]').val() != 0 &&
-                            $('input[name="property_persist"]').val() == value.id ? 'selected' : false)
+                            selected: ($('input[name="property_persist"]').val() != 0 && $('input[name="property_persist"]').val() == value.id ? 'selected' : false)
                         }));
                     });
+
                 } else {
-                    selecOwnertProperty.append($('<option>', {
+                    $('select[name="property"]').append($('<option>', {
                         value: 0,
-                        text: 'Não Informado'
+                        text: 'Não informado'
                     }));
                 }
-
             }
 
             $('select[name="owner"]').change(function () {

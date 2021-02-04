@@ -49,18 +49,12 @@
                             <td>{{ $contract->purpose == 'sale' ? 'Venda' : 'Locação' }}</td>
                             <td>{{ $contract->start_at }}</td>
                             <td>{{ $contract->deadline }} meses</td>
-                            <td style="width: 100px"><a
-                                    href="{{ route('admin.contracts.edit', ['contract' => $contract->id]) }}"
-                                    class="text-orange text-center">
-                                    <button class="icon-pencil btn btn-green" title="Excluir">Editar</button>
-                                </a>
-
-                                <a href="{{ route('admin.contracts.remover', ['contract' => $contract->id]) }}"
-                                   class="text-orange text-center">
-                                    <button class="icon-trash btn btn-orange" title="Excluir">Excluir</button>
-                                </a></td>
+                            <td style="width: 100px">
+                                <button id="route_delete" class="icon-trash btn btn-orange btn-route"
+                                        value="{{ $contract->id }}" title="Excluir">Excluir
+                                </button>
+                            </td>
                         </tr>
-                        <a href=""></a>
                     @endforeach
                     </tbody>
                 </table>
@@ -68,3 +62,55 @@
         </div>
     </section>
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('.btn-route').click(function (e) {
+                e.preventDefault();
+                var id = $(this).closest('tr').find(this).val();
+
+                Swal.fire({
+                    title: 'Você tem certeza?',
+                    text: "Você não poderá reverter isso!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, excluir!',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            type: 'DELETE',
+                            url: '/imobiliaria/public/admin/contracts/' + id,
+                            success: function (response) {
+                                if (response.status) {
+                                    Swal.fire(
+                                        'Excluído!',
+                                        'O item  foi excluído..',
+                                        'success'
+                                    )
+                                        .then((result) => {
+                                            location.reload();
+                                        });
+                                }
+                            }
+                        });
+                    }
+
+                });
+            });
+        });
+
+    </script>
+@endsection
+
+
