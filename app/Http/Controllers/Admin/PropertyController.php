@@ -50,6 +50,7 @@ class PropertyController extends Controller
     {
         try {
             $createProperty = Property::create($request->all());
+            $createProperty->setSlug();
 
             $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
             if ($validator->fails() === true) {
@@ -135,7 +136,7 @@ class PropertyController extends Controller
         $property->setPoolAttribute($request->pool);
         $property->setSteamRoomAttribute($request->steam_room);
         $property->setViewOfTheSeaAttribute($request->view_of_theSea);
-
+        $property->setSlug();
 
         try {
             $property->save();

@@ -84,7 +84,6 @@
                         <div class="realty_list">
                             @if(!empty($properties))
                                 @foreach($properties as $property)
-                                    @if(($property->status) === true)
                                         <div class="realty_list_item mb-2">
                                             <div class="realty_list_item_actions_stats">
                                                 <img
@@ -162,7 +161,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
                                 @endforeach
                             @else
                                 <div class="no-content">Não foram encontrados registros!</div>

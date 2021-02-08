@@ -53,7 +53,11 @@ class Property extends Model
         'pool',
         'steam_room',
         'view_of_the_sea',
-        'status'
+        'status',
+        'title',
+        'slug',
+        'headline',
+        'experience'
     ];
 
     public function images()
@@ -88,6 +92,16 @@ class Property extends Model
     public function scopeUnavailable($query)
     {
         return $query->where('status', 0);
+    }
+
+    public function scopeSale($query)
+    {
+        return $query->where('sale', 1);
+    }
+
+    public function scopeRent($query)
+    {
+        return $query->where('rent', 1);
     }
 
     public function user()
@@ -243,5 +257,14 @@ class Property extends Model
     public function setViewOfTheSeaAttribute($value)
     {
         $this->attributes['view_of_the_sea'] = Utils::setValueCheckBox($value);
+    }
+
+    public function setSlug()
+    {
+        $this->attributes['slug'] = null;
+        if (!empty($this->title)) {
+            $this->attributes['slug'] = str_slug($this->title) . "-$this->id";
+            $this->save();
+        }
     }
 }

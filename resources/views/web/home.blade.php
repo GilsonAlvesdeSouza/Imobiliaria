@@ -6,7 +6,8 @@
         <div class="container" style="height: 100%;">
             <div class="row align-items-center" style="height: 100%;">
                 <div class="col-lg-8">
-                    <p class="main_slide_content text-white">Encontre o <b>Imóvel ideal</b> para você e <b>sua família</b>
+                    <p class="main_slide_content text-white">Encontre o <b>Imóvel ideal</b> para você e <b>sua
+                            família</b>
                         morar na praia!</p>
                     <a href="javascript:void(0);" class="btn btn-front btn-lg text-white">Quero <b>Alugar</b>!</a>
                     <a href="javascript:void(0);" class="btn btn-front btn-lg text-white">Quero <b>Comprar</b>!</a>
@@ -62,7 +63,8 @@
                     </div>
                     <div class="form-group col-12 col-sm-6 mt-sm-2 col-lg-3 mt-lg-0">
                         <label for="search_locale" class="mb-2"><b>Onde você quer?</b></label>
-                        <select class="selectpicker" name="bedrooms" id="bedrooms" title="Escolha..." multiple data-actions-box="true">
+                        <select class="selectpicker" name="bedrooms" id="bedrooms" title="Escolha..." multiple
+                                data-actions-box="true">
                             <option value="">Campeche</option>
                             <option value="">Rio Tavares</option>
                             <option value="">Morro das Pedras</option>
@@ -240,113 +242,51 @@
 
             <div class="row">
 
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/1/5a3571ab-4d76-466f-8246-eff8cb98cedd.jpg')) }}" class="card-img-top"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
+                @if($propertiesForSale->count())
+                    @foreach($propertiesForSale as $property)
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <article class="card main_properties_item">
+                                <div class="img-responsive-16by9">
+                                    <a href="">
+                                        <img
+                                            src="{{ $property->getCover() }}"
+                                            class="card-img-top"
+                                            alt="">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h2><a href="" class="text-front">{{ $property->title }}</a>
+                                    </h2>
+                                    <p class="main_properties_item_category">{{ $property->category }}</p>
+                                    <p class="main_properties_item_type">{{ $property->type }} - {{ $property->neighborhood }}
+                                        <i
+                                            class="icon-location-arrow icon-notext"></i></p>
+                                    <p class="main_properties_price text-front">R$ {{ $property->sale_price }}</p>
+                                    <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
+                                </div>
+                                <div class="card-footer d-flex">
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid"
+                                             alt="">
+                                        <p class="text-muted">4</p>
+                                    </div>
 
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">2</p>
-                            </div>
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}"
+                                             class="img-fluid" alt="">
+                                        <p class="text-muted">2</p>
+                                    </div>
 
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}"
+                                             class="img-fluid" alt="">
+                                        <p class="text-muted">1500 m&sup2;</p>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
-                    </article>
-                </div>
-
-                <div class="d-none d-md-block col-md-6 col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/2/a56fc386-3790-4e98-a72c-3b09d24adecd.jpg')) }}" class="card-img-top"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">2</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="d-none d-lg-block col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/3/667d07e1-c0ac-4e3b-b450-4bc9bcc9bffb.jpg')) }}" class="card-img-top"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">2</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>
@@ -364,12 +304,14 @@
                     <article class="card main_properties_item">
                         <div class="img-responsive-16by9">
                             <a href="">
-                                <img src="{{ url(asset('web/properties/4/3d656134-3760-4c9a-af1a-503301acc0be.jpg')) }}" class="card-img-top"
+                                <img src="{{ url(asset('web/properties/4/3d656134-3760-4c9a-af1a-503301acc0be.jpg')) }}"
+                                     class="card-img-top"
                                      alt="">
                             </a>
                         </div>
                         <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
+                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
+                                    Lampião</a>
                             </h2>
                             <p class="main_properties_item_category">Imóvel Residencial</p>
                             <p class="main_properties_item_type">Casa - Campeche <i
@@ -384,12 +326,14 @@
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">2</p>
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">1500 m&sup2;</p>
                             </div>
                         </div>
@@ -400,12 +344,14 @@
                     <article class="card main_properties_item">
                         <div class="img-responsive-16by9">
                             <a href="">
-                                <img src="{{ url(asset('web/properties/5/39e47814-f0d8-4bb5-8508-1622096d1f4d.jpg')) }}" class="card-img-top"
+                                <img src="{{ url(asset('web/properties/5/39e47814-f0d8-4bb5-8508-1622096d1f4d.jpg')) }}"
+                                     class="card-img-top"
                                      alt="">
                             </a>
                         </div>
                         <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
+                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
+                                    Lampião</a>
                             </h2>
                             <p class="main_properties_item_category">Imóvel Residencial</p>
                             <p class="main_properties_item_type">Casa - Campeche <i
@@ -420,12 +366,14 @@
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">2</p>
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">1500 m&sup2;</p>
                             </div>
                         </div>
@@ -436,12 +384,14 @@
                     <article class="card main_properties_item">
                         <div class="img-responsive-16by9">
                             <a href="">
-                                <img src="{{ url(asset('web/properties/5/8771b309-8314-4023-89a8-1f1b01165075.jpg')) }}" class="card-img-top"
+                                <img src="{{ url(asset('web/properties/5/8771b309-8314-4023-89a8-1f1b01165075.jpg')) }}"
+                                     class="card-img-top"
                                      alt="">
                             </a>
                         </div>
                         <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do Lampião</a>
+                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
+                                    Lampião</a>
                             </h2>
                             <p class="main_properties_item_category">Imóvel Residencial</p>
                             <p class="main_properties_item_type">Casa - Campeche <i
@@ -456,12 +406,14 @@
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">2</p>
                             </div>
 
                             <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid" alt="">
+                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
+                                     alt="">
                                 <p class="text-muted">1500 m&sup2;</p>
                             </div>
                         </div>

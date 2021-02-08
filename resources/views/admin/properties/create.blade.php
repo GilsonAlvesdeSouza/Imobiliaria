@@ -86,7 +86,8 @@
                                         <optgroup label="Imóvel Residencial">
                                             <option value="Casa" {{ (old('type') == 'Casa' ? 'selected' : '') }}>Casa
                                             </option>
-                                            <option value="Cobertura" {{ (old('type') == 'Cobertura' ? 'selected' : '') }}>
+                                            <option
+                                                value="Cobertura" {{ (old('type') == 'Cobertura' ? 'selected' : '') }}>
                                                 Cobertura
                                             </option>
                                             <option
@@ -127,7 +128,9 @@
                                 <select name="user" class="select2">
                                     <option value="{{ null }}">Selecione uma opção</option>
                                     @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ (old('user') == $user->id ? 'selected' : '') }}>{{ $user->name }} ({{ $user->document }})
+                                        <option
+                                            value="{{ $user->id }}" {{ (old('user') == $user->id ? 'selected' : '') }}>{{ $user->name }}
+                                            ({{ $user->document }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -137,8 +140,10 @@
                                 <label class="label">
                                     <span class="legend">Status:</span>
                                     <select name="status" id="" class="select2">
-                                        <option value="1"{{ (old("status") == "1" ? "selected" : '')  }}>Disponível</option>
-                                        <option value="0" {{ (old("status") == "0" ? "selected" : '') }}>Indisponível</option>
+                                        <option value="1"{{ (old("status") == "1" ? "selected" : '')  }}>Disponível
+                                        </option>
+                                        <option value="0" {{ (old("status") == "0" ? "selected" : '') }}>Indisponível
+                                        </option>
                                     </select>
                                 </label>
                             </div>
@@ -411,15 +416,61 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="images" class="d-none">
+
+                            <h3 class="mt-2 mb-1">Informações do Site</h3>
+
                             <label class="label">
-                                <span class="legend">Imagens</span>
-                                <input type="file" name="files[]" multiple>
+                                <span class="legend">Título: <a href="" target="_blank" class="text-orange icon-link"
+                                                                style=" margin-left: 10px; font-size: 0.875em;">Link</a></span>
+                                <input type="text" name="title" value="{{ old('title') }}">
                             </label>
 
-                            <div class="content_image"></div>
+                            <label class="label">
+                                <span class="legend">Headline:</span>
+                                <input type="text" name="headline" value="{{ old('headline') }}">
+                            </label>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Experiência</span>
+                                    <select name="experience" class="select2">
+                                        <option
+                                            value="Cobertura" {{ (old('experience') == 'Cobertura' ? 'selected' :  '') }}>
+                                            Cobertura
+                                        </option>
+                                        <option
+                                            value="Alto Padrão" {{ (old('experience') == 'Alto Padrão' ? 'selected' : '') }}>
+                                            Alto Padrão
+                                        </option>
+                                        <option
+                                            value="De Frente para o Mar" {{ (old('experience') == 'De Frente para o Mar' ? 'selected' : '') }}>
+                                            De Frente para o Mar
+                                        </option>
+                                        <option
+                                            value="Condomínio Fechado" {{ (old('experience') == 'Condomínio Fechado' ? 'selected' : '') }}>
+                                            Condomínio Fechado
+                                        </option>
+                                        <option
+                                            value="Compacto" {{ (old('experience') == 'Compacto' ? 'selected' : '') }}>
+                                            Compacto
+                                        </option>
+                                        <option
+                                            value="Lojas e Salas" {{ (old('experience') == 'Lojas e Salas' ? 'selected' : '') }}>
+                                            Lojas e Salas
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div id="images" class="d-none">
+                                <label class="label">
+                                    <span class="legend">Imagens</span>
+                                    <input type="file" name="files[]" multiple>
+                                </label>
+
+                                <div class="content_image"></div>
+                            </div>
                         </div>
                     </div>
 
