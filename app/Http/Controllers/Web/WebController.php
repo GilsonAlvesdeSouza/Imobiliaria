@@ -10,8 +10,8 @@ class WebController extends Controller
 {
     public function home()
     {
-        $propertiesForSale = Property::sale()->available()->orderBy('id', 'DESC')->get();
-        $propertiesForRent = Property::rent()->available()->orderBy('id', 'DESC')->get();
+        $propertiesForSale = Property::sale()->available()->orderBy('id', 'DESC')->limit(3)->get();
+        $propertiesForRent = Property::rent()->available()->orderBy('id', 'DESC')->limit(3)->get();
         return view('web.home',[
             'propertiesForSale' => $propertiesForSale,
             'propertiesForRent' => $propertiesForRent
@@ -28,9 +28,21 @@ class WebController extends Controller
         return view('web.filter');
     }
 
+    public function rentProperty($slug)
+    {
+        $property = Property::where('slug', $slug)->first();
+        dd($property->getAttributes());
+    }
+
     public function buy()
     {
         return view('web.filter');
+    }
+
+    public function buyProperty($slug)
+    {
+        $property = Property::where('slug', $slug)->first();
+        dd($property->getAttributes());
     }
 
     public function filter()

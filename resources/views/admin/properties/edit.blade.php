@@ -58,13 +58,13 @@
                                 <span class="legend">Finalidade:</span>
                                 <label class="label">
                                     <input type="checkbox" id="sale"
-                                           name="sale" {{ (old('checkSale') == 'on'  ? 'checked' :  (old('checkSale') == 'off' ? '' :  $property->sale == 1 ? 'checked' : ''))  }} ><span>Locador</span>
+                                           name="sale" {{ (old('checkSale') == 'on'  ? 'checked' :  (old('checkSale') == 'off' ? '' :  $property->sale == 1 ? 'checked' : ''))  }} ><span>Venda</span>
                                     <input type="hidden" id="checkSale" name="checkSale" value="">
                                 </label>
 
                                 <label class="label">
                                     <input type="checkbox" id="rent"
-                                           name="rent" {{ (old('checkRent') == 'on'  ? 'checked' :  (old('checkRent') == 'off' ? '' :  $property->rent == 1 ? 'checked' : ''))  }} ><span>Locador</span>
+                                           name="rent" {{ (old('checkRent') == 'on'  ? 'checked' :  (old('checkRent') == 'off' ? '' :  $property->rent == 1 ? 'checked' : ''))  }} ><span>Locação</span>
                                     <input type="hidden" id="checkRent" name="checkRent" value="">
                                 </label>
                             </div>

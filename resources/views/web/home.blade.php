@@ -247,7 +247,7 @@
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
                             <article class="card main_properties_item">
                                 <div class="img-responsive-16by9">
-                                    <a href="">
+                                    <a href="{{ route('web.buy-property', ['slug' => $property->slug]) }}">
                                         <img
                                             src="{{ $property->getCover() }}"
                                             class="card-img-top"
@@ -255,32 +255,35 @@
                                     </a>
                                 </div>
                                 <div class="card-body">
-                                    <h2><a href="" class="text-front">{{ $property->title }}</a>
+                                    <h2><a href="{{ route('web.buy-property', ['slug' => $property->slug]) }}"
+                                           class="text-front">{{ $property->title }}</a>
                                     </h2>
                                     <p class="main_properties_item_category">{{ $property->category }}</p>
-                                    <p class="main_properties_item_type">{{ $property->type }} - {{ $property->neighborhood }}
+                                    <p class="main_properties_item_type">{{ $property->type }}
+                                        - {{ $property->neighborhood }}
                                         <i
                                             class="icon-location-arrow icon-notext"></i></p>
                                     <p class="main_properties_price text-front">R$ {{ $property->sale_price }}</p>
-                                    <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
+                                    <a href="{{ route('web.buy-property', ['slug' => $property->slug]) }}"
+                                       class="btn btn-front btn-block">Ver Imóvel</a>
                                 </div>
                                 <div class="card-footer d-flex">
                                     <div class="main_properties_features col-4 text-center">
                                         <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid"
                                              alt="">
-                                        <p class="text-muted">4</p>
+                                        <p class="text-muted">{{ $property->bedrooms }}</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
                                         <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}"
                                              class="img-fluid" alt="">
-                                        <p class="text-muted">2</p>
+                                        <p class="text-muted">{{ $property->garage + $property->garagecovered }}</p>
                                     </div>
 
                                     <div class="main_properties_features col-4 text-center">
                                         <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}"
                                              class="img-fluid" alt="">
-                                        <p class="text-muted">1500 m&sup2;</p>
+                                        <p class="text-muted">{{ $property->area_util }} m&sup2;</p>
                                     </div>
                                 </div>
                             </article>
@@ -299,128 +302,57 @@
             </header>
 
             <div class="row">
+                @if($propertiesForRent->count())
+                    @foreach($propertiesForRent as $property)
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <article class="card main_properties_item">
+                                <div class="img-responsive-16by9">
+                                    <a href="{{ route('web.rent-property', ['slug' => $property->slug]) }}">
+                                        <img
+                                            src="{{ $property->getCover() }}"
+                                            class="card-img-top"
+                                            alt="">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h2><a href="{{ route('web.rent-property', ['slug' => $property->slug]) }}"
+                                           class="text-front">{{ $property->title }}</a>
+                                    </h2>
+                                    <p class="main_properties_item_category">{{ $property->category }}</p>
+                                    <p class="main_properties_item_type">{{ $property->type }}
+                                        - {{ $property->neighborhood }}
+                                        <i
+                                            class="icon-location-arrow icon-notext"></i></p>
+                                    <p class="main_properties_price text-front">R$ {{ $property->sale_price }}</p>
+                                    <a href="{{ route('web.rent-property', ['slug' => $property->slug]) }}"
+                                       class="btn btn-front btn-block">Ver Imóvel</a>
+                                </div>
+                                <div class="card-footer d-flex">
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid"
+                                             alt="">
+                                        <p class="text-muted">{{ $property->bedrooms }}</p>
+                                    </div>
 
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/4/3d656134-3760-4c9a-af1a-503301acc0be.jpg')) }}"
-                                     class="card-img-top"
-                                     alt="">
-                            </a>
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}"
+                                             class="img-fluid" alt="">
+                                        <p class="text-muted">{{ $property->garage + $property->garagecovered }}</p>
+                                    </div>
+
+                                    <div class="main_properties_features col-4 text-center">
+                                        <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}"
+                                             class="img-fluid" alt="">
+                                        <p class="text-muted">{{ $property->area_util }} m&sup2;</p>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
-                                    Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">2</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="d-none d-md-block col-md-6 col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/5/39e47814-f0d8-4bb5-8508-1622096d1f4d.jpg')) }}"
-                                     class="card-img-top"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
-                                    Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">2</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="d-none d-lg-block col-lg-4 mb-4">
-                    <article class="card main_properties_item">
-                        <div class="img-responsive-16by9">
-                            <a href="">
-                                <img src="{{ url(asset('web/properties/5/8771b309-8314-4023-89a8-1f1b01165075.jpg')) }}"
-                                     class="card-img-top"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h2><a href="" class="text-front">Linda Casa no Campeche com vista para o Morro do
-                                    Lampião</a>
-                            </h2>
-                            <p class="main_properties_item_category">Imóvel Residencial</p>
-                            <p class="main_properties_item_type">Casa - Campeche <i
-                                    class="icon-location-arrow icon-notext"></i></p>
-                            <p class="main_properties_price text-front">R$ 1.500,00/mês</p>
-                            <a href="" class="btn btn-front btn-block">Ver Imóvel</a>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/bed.png')) }}" class="img-fluid" alt="">
-                                <p class="text-muted">4</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/garage.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">2</p>
-                            </div>
-
-                            <div class="main_properties_features col-4 text-center">
-                                <img src="{{ url(asset('web/assets/images/icons/util-area.png')) }}" class="img-fluid"
-                                     alt="">
-                                <p class="text-muted">1500 m&sup2;</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
+                    @endforeach
+                @endif
             </div>
+
+        </div>
         </div>
     </section>
 

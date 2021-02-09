@@ -23,9 +23,11 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
 
     /** rental page */
     Route::get('/quero-alugar', 'WebController@rent')->name('rent');
+    Route::get('/quero-alugar/{slug}', 'WebController@rentProperty')->name('rent-property');
 
     /** purchase page */
     Route::get('/quero-comprar', 'WebController@buy')->name('buy');
+    Route::get('/quero-comprar/{slug}', 'WebController@buyProperty')->name('buy-property');
 
     /** filter page */
     Route::get('/filtro', 'WebController@filter')->name('filter');

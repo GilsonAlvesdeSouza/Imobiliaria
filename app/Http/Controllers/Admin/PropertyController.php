@@ -53,6 +53,7 @@ class PropertyController extends Controller
             $createProperty->setSlug();
 
             $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+
             if ($validator->fails() === true) {
                 return redirect()->back()->withInput()->with([
                     'color' => 'orange',
