@@ -142,8 +142,8 @@ class PropertyController extends Controller
         try {
             $property->save();
 
-            //com SweetAlert
-            $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+            //como eu fiz com SweetAlert
+            $validator = Validator::make($request->only('files'), ['files.*' => 'mimes:jpg,jpeg,png']);
             if ($validator->fails() === true) {
                 return redirect()->back()->withInput()->with('warning', 'Todas as imagens devem ser do tipo jpg, jpeg ou png.');
             }
