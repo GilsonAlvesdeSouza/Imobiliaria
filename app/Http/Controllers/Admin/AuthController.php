@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Model\Admin\Contract;
 use LaraDev\Model\Admin\Property;
-use LaraDev\User;
+use LaraDev\Model\Admin\User;
 use function GuzzleHttp\Promise\all;
 
 

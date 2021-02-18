@@ -10,7 +10,7 @@ use LaraDev\Http\Requests\Admin\PropertyRequest;
 use LaraDev\Model\Admin\Property;
 use LaraDev\Model\Admin\PropertyImage;
 use LaraDev\Suporte\Cropper;
-use LaraDev\User;
+use LaraDev\Model\Admin\User;
 
 class PropertyController extends Controller
 {

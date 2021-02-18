@@ -26,13 +26,13 @@
         <div class="dash_content_app_box">
             <div class="nav">
 
-{{--                @if($errors->all())--}}
-{{--                    @foreach($errors->all() as $error)--}}
-{{--                        @message(['color' => 'orange'])--}}
-{{--                        <p class="icon-asterisk">{{ $error }}</p>--}}
-{{--                        @endmessage--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
+                {{--                @if($errors->all())--}}
+                {{--                    @foreach($errors->all() as $error)--}}
+                {{--                        @message(['color' => 'orange'])--}}
+                {{--                        <p class="icon-asterisk">{{ $error }}</p>--}}
+                {{--                        @endmessage--}}
+                {{--                    @endforeach--}}
+                {{--                @endif--}}
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Dados Cadastrais</a>
@@ -60,13 +60,13 @@
                                 <span class="legend">Perfil:</span>
                                 <label class="label">
                                     <input type="checkbox" id="lessor"
-                                           name="lessor" {{ (old('checkLessor') == 'on'  ? 'checked' :  (old('checkLessor') == 'off' ? '' :  $user->lessor == 1 ? 'checked' : ''))  }} ><span>Locador</span>
+                                           name="lessor" {{ (old('checkLessor') == 'on'  ? 'checked' :  (old('checkLessor') == 'off' ? '' : ($user->lessor == 1 ? 'checked' : '')))  }} ><span>Locador</span>
                                     <input type="hidden" id="checkLessor" name="checkLessor" value="">
                                 </label>
 
                                 <label class="label">
                                     <input type="checkbox" id="lessee"
-                                           name="lessee" {{ (old('checkLessee') == 'on'  ? 'checked' :  (old('checkLessee') == 'off' ? '' :  $user->lessee == 1 ? 'checked' : ''))  }} ><span>Locatário</span>
+                                           name="lessee" {{ (old('checkLessee') == 'on'  ? 'checked' :  (old('checkLessee') == 'off' ? '' : ($user->lessee == 1 ? 'checked' : '')))  }} ><span>Locatário</span>
                                     <input type="hidden" id="checkLessee" name="checkLessee" value="">
                                 </label>
                             </div>
@@ -516,8 +516,7 @@
                                                                     <span class="icon-realty-location"></span>
                                                                 </div>
                                                                 <div class="realty_list_item_card_content">
-               <span
-                   class="realty_list_item_description_title">Bairro:</span>
+                                                                    <span class="realty_list_item_description_title">Bairro:</span>
                                                                     <span
                                                                         class="realty_list_item_description_content">{{ $property->neighborhood }}</span>
                                                                 </div>
@@ -528,8 +527,7 @@
                                                                     <span class="icon-realty-util-area"></span>
                                                                 </div>
                                                                 <div class="realty_list_item_card_content">
-           <span
-               class="realty_list_item_description_title">Área Útil:</span>
+                                                                    <span class="realty_list_item_description_title">Área Útil:</span>
                                                                     <span class="realty_list_item_description_content">{{ $property->area_util }}&sup2;</span>
                                                                 </div>
                                                             </div>
@@ -539,8 +537,7 @@
                                                                     <span class="icon-realty-bed"></span>
                                                                 </div>
                                                                 <div class="realty_list_item_card_content">
-           <span
-               class="realty_list_item_description_title">Domitórios:</span>
+                                                                    <span class="realty_list_item_description_title">Domitórios:</span>
                                                                     <span class="realty_list_item_description_content">{{ $property->bedrooms + $property->suites }} Quartos<br><span>Sendo {{ $property->suites }} suítes</span></span>
                                                                 </div>
                                                             </div>
@@ -550,8 +547,7 @@
                                                                     <span class="icon-realty-garage"></span>
                                                                 </div>
                                                                 <div class="realty_list_item_card_content">
-           <span
-               class="realty_list_item_description_title">Garagem:</span>
+                                                                    <span class="realty_list_item_description_title">Garagem:</span>
                                                                     <span
                                                                         class="realty_list_item_description_content">{{ $property->garage + $property->garage_covered }} Vagas<br><span>Sendo {{ $property->garage_covered }} cobertas</span></span>
                                                                 </div>
@@ -600,13 +596,13 @@
                                 <span class="legend">Conceder:</span>
                                 <label class="label">
                                     <input type="checkbox" id="admin"
-                                           name="admin" {{ (old('checkAdmin') == 'on'  ? 'checked' :  (old('checkAdmin') == 'off' ? '' :  $user->admin == 1 ? 'checked' : ''))  }} ><span>Administrador</span>
+                                           name="admin" {{ (old('checkAdmin') == 'on'  ? 'checked' :  (old('checkAdmin') == 'off' ? '' : ($user->admin == 1 ? 'checked' : '')))  }} ><span>Administrador</span>
                                     <input type="hidden" id="checkAdmin" name="checkAdmin" value="">
                                 </label>
 
                                 <label class="label">
                                     <input type="checkbox" id="client"
-                                           name="client" {{ (old('checkClient') == 'on'  ? 'checked' :  (old('checkClient') == 'off' ? '' :  $user->client == 1 ? 'checked' : ''))  }} ><span>Cliente</span>
+                                           name="client" {{ (old('checkClient') == 'on'  ? 'checked' :  (old('checkClient') == 'off' ? '' : ($user->client == 1 ? 'checked' : '')))  }} ><span>Cliente</span>
                                     <input type="hidden" id="checkClient" name="checkClient" value="">
                                 </label>
                             </div>

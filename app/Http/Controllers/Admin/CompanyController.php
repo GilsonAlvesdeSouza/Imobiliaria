@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\admin\CompanyRequest;
 use LaraDev\Model\Admin\Company;
-use LaraDev\User;
+use LaraDev\Model\Admin\User;
 
 class CompanyController extends Controller
 {

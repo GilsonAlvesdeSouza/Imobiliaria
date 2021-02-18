@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\UserRequest;
 use LaraDev\Suporte\Cropper;
-use LaraDev\User;
+use LaraDev\Model\Admin\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller

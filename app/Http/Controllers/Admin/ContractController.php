@@ -7,7 +7,7 @@ use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\ContractsRequest;
 use LaraDev\Model\Admin\Contract;
 use LaraDev\Model\Admin\Property;
-use LaraDev\User;
+use LaraDev\Model\Admin\User;
 
 
 class ContractController extends Controller

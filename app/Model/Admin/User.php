@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraDev;
+namespace LaraDev\Model\Admin;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

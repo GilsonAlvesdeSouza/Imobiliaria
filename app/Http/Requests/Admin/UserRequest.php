@@ -54,7 +54,7 @@ class UserRequest extends FormRequest
 
             // Access
             'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
-            'password' => (empty($this->request->all()['id']) ? 'required|min:8' : !empty($this->request->all()['password']) ? 'min:8' : ''),
+            'password' => ((empty($this->request->all()['id']) ? 'required|min:8' : !empty($this->request->all()['password'])) ? 'min:8' : ''),
             'password_confirm' => 'same:password',
         ];
 
